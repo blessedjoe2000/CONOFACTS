@@ -1,20 +1,13 @@
 const express = require("express");
+const {  registerUser, loginUser, getUserById, getByUsername} = require("../controller/userController");
+const protect = require("../middleware/authMiddleware");
+
+
+
 const userRouter = express.Router();
 
-userRouter.get('/', (req, res) => {
-    res.send("CONOFACTS users in progress")
-})
-
-userRouter.post('/', (req, res) => {
-    res.send("created user")
-})
-
-userRouter.put('/:id', (req, res) => {
-    res.send("updated user")
-})
-
-userRouter.delete('/:id', (req, res) => {
-    res.send("deleted user")
-})
+userRouter.post('/', registerUser);
+userRouter.post('/login', loginUser);
+userRouter.get('/:id', protect, getUserById);
 
 module.exports = {userRouter}
