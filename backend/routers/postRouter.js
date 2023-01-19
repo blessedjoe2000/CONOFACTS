@@ -1,21 +1,11 @@
 const express = require("express");
+const { getPosts, setPost, updatePost, removePost, getPostByTitle } = require("../controller/postController");
 
 const postRouter = express.Router();
 
-postRouter.get('/', (req, res) => {
-    res.send('All posts');
-})
+postRouter.route('/').get(getPosts).post(setPost)
+postRouter.route('/:id').put(updatePost).delete(removePost)
+postRouter.route('/:title').get(getPostByTitle)
 
-postRouter.post('/', (req, res) => {
-    res.send('created a post');
-})
-
-postRouter.put('/:id', (req, res) => {
-    res.send('post updated');
-})
-
-postRouter.delete('/:id', (req, res) => {
-    res.send('post deleted');
-})
 
 module.exports = postRouter;
