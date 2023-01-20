@@ -27,10 +27,16 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new Error('Please enter password')
     }
 
+    //make sure the password field is not empty
+    if(!username){
+        res.status(400)
+        throw new Error('Please enter username')
+    }
+
     //check if user exist with email
     const userExist = await User.findOne({email});
 
-    //check if user exist with user name
+    //check if user exist with username
     const userUsernameExit = await User.findOne({username})
 
     if(userExist){
@@ -68,7 +74,7 @@ const registerUser = asyncHandler( async (req, res) => {
             dob: user.dob,
             about: user.about,
             location: user.location,
-            token: generateToken(user.id)
+            token: generateToken(user._id)
         })
     }else{
         res.status(400)
@@ -101,7 +107,7 @@ const loginUser = asyncHandler( async (req, res) => {
             dob: userByEmail.dob,
             about: userByEmail.about,
             location: userByEmail.location,
-            token: generateToken(userByEmail.id)
+            token: generateToken(userByEmail._id)
         })
     }
 
@@ -116,7 +122,7 @@ const loginUser = asyncHandler( async (req, res) => {
             dob: userByUsername.dob,
             about: userByUsername.about,
             location: userByUsername.location,
-            token: generateToken(userByUsername.id)
+            token: generateToken(userByUsername._id)
         })
     }
 
@@ -139,6 +145,32 @@ const getUserById = asyncHandler( async(req, res) => {
     })
 })
 
+//@desc update user data
+//route PUT/conofacts/users/id
+//access Private
+const updateUser = asyncHandler( async(req, res) =>{
+    const {id} = req.params;
+
+    const user = await User.findById(id);
+
+    if(!user){
+        res.status(400)
+        throw new Error("User not found")
+    }
+
+    const updatedUser = await User.findByIdAndUpdate({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        dob: user.dob,
+        about: user.about,
+        location: user.location
+    })
+
+    res.status(200).json({updatedUser})
+
+})
 
 //Generate token
 const generateToken = (id) => {
@@ -149,5 +181,5 @@ const generateToken = (id) => {
 
 
 module.exports = {
-    registerUser, loginUser, getUserById,
+    registerUser, loginUser, getUserById, updateUser
 }
