@@ -90,6 +90,16 @@ const registerUser = asyncHandler( async (req, res) => {
 const loginUser = asyncHandler( async (req, res) => {
     const {email, username, password} = req.body;
 
+    if(!email){
+        res.status(400)
+        throw new Error('Emter email... email is required');
+    }
+
+    if(!password){
+        res.status(400)
+        throw new Error('Enter password... password is required');
+    }
+
     //check for user with email
     const userByEmail = await User.findOne({email});
 
@@ -122,7 +132,7 @@ const loginUser = asyncHandler( async (req, res) => {
             dob: userByUsername.dob,
             about: userByUsername.about,
             location: userByUsername.location,
-            token: generateToken(userByUsername._id)
+            token: generateToken(userByUsername._id),
         })
     }
 
@@ -158,18 +168,28 @@ const updateUser = asyncHandler( async(req, res) =>{
         throw new Error("User not found")
     }
 
-    const updatedUser = await User.findByIdAndUpdate({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        dob: user.dob,
-        about: user.about,
-        location: user.location
-    })
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, {new: true})
 
     res.status(200).json({updatedUser})
 
+})
+
+//@desc update user data
+//route PUT/conofacts/users/id
+//access Private
+const deleteUser = asyncHandler( async(req, res) => {
+    const {id} = req.params;
+
+    const user = await User.findById(id);
+
+    if(!user){
+        res.status(400)
+        throw new Error("User not found")
+    }
+
+
+    await User.findByIdAndDelete(user.id);
+    return res.status(200).json(`Deleted user with id ${id}`)
 })
 
 //Generate token
@@ -181,5 +201,5 @@ const generateToken = (id) => {
 
 
 module.exports = {
-    registerUser, loginUser, getUserById, updateUser
+    registerUser, loginUser, getUserById, updateUser, deleteUser
 }
