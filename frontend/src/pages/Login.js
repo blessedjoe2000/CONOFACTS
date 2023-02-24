@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
+import { login, reset } from "../features/auth/authSlice";
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isPending, isSuccess, isError, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isPending, isSuccess, isError, message, dispatch, navigate]);
 
   const { email, password } = formData;
 
@@ -19,7 +40,16 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
   };
+
+  if (isPending) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -67,7 +97,7 @@ function Login() {
         </form>
         <p>
           Don't have an account?
-          <Link to="/register"> click here to register</Link>{" "}
+          <Link to="/register"> click here to register</Link>
         </p>
       </section>
     </>
