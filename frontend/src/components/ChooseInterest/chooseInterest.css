@@ -1,0 +1,38 @@
+.interest-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0rem;
+}
+
+.interest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(228, 83, 83);
+  border: solid 1px rgb(228, 83, 83);
+  width: 20vw;
+  height: 40vh;
+}
+
+.interest.highlight {
+  background-color: blue;
+  color: white;
+}
+
+.interest-next-btn {
+  border: solid 1px rgb(228, 83, 83);
+  border-radius: 10px;
+  color: rgb(228, 83, 83);
+  padding: 0.5rem 2rem;
+}
+
+.interest-next-btn.disabled {
+  background-color: blue;
+  color: white;
+}
+
+.next-btn {
+  display: flex;
+  justify-content: flex-end;
+}
