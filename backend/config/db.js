@@ -14,5 +14,12 @@ const connectDb = async () => {
     process.exit(1);
   }
 };
+mongoose.connection.on("disconnected", () => {
+  console.log("MONGODB disconnected");
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("MONGODB connected");
+});
 
 module.exports = connectDb;

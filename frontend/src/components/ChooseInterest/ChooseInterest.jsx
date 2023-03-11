@@ -4,65 +4,39 @@ import "./chooseInterest.css";
 function ChooseInterest() {
   const [selectedInterest, setSelectedInterest] = useState([]);
 
-  const selectInterest = (interest) => {
-    if (!selectedInterest.includes(interest)) {
+  const interestArray = [
+    "Sports",
+    "Wildlife",
+    "Road Trip",
+    "Book Club",
+    "Games",
+    "Adventure",
+  ];
+
+  const handleInterest = (interest) => {
+    if (selectedInterest.includes(interest)) {
+      setSelectedInterest(selectedInterest.filter((item) => item !== interest));
+    } else {
       setSelectedInterest([...selectedInterest, interest]);
+      console.log(selectedInterest);
     }
-    console.log("selected interest", selectedInterest);
   };
   const disabledNext = selectedInterest.length < 2;
 
   return (
     <>
       <div className="interest-container">
-        <button
-          onClick={() => {
-            selectInterest("sports");
-          }}
-          className={`interest`}
-        >
-          Sports
-        </button>
-        <button
-          onClick={() => {
-            selectInterest("wildlife");
-          }}
-          className={`interest`}
-        >
-          Wildlife
-        </button>
-        <button
-          onClick={() => {
-            selectInterest("road-trip");
-          }}
-          className={`interest`}
-        >
-          Road Trip
-        </button>
-        <button
-          onClick={() => {
-            selectInterest("book-club");
-          }}
-          className={`interest`}
-        >
-          Book Club
-        </button>
-        <button
-          onClick={() => {
-            selectInterest("games");
-          }}
-          className={`interest`}
-        >
-          Games
-        </button>
-        <button
-          onClick={() => {
-            selectInterest("adventure");
-          }}
-          className={`interest`}
-        >
-          Adventure
-        </button>
+        {interestArray.map((interest) => {
+          return (
+            <button
+              className="interest"
+              value={interest}
+              onClick={handleInterest}
+            >
+              {interest}
+            </button>
+          );
+        })}
       </div>
       <div className="next-btn">
         <button
