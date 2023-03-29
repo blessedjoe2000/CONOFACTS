@@ -27,9 +27,7 @@ function Dashboard() {
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, dispatch]);
-
-  console.log(user);
+  }, [user, navigate, dispatch, isError, message]);
 
   if (isPending) {
     return <Spinner />;

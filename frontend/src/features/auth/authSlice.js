@@ -3,12 +3,12 @@ import authService from "./authService";
 
 //Get user from local storage
 const user = JSON.parse(localStorage.getItem("user"));
-// const token = JSON.parse(localStorage.getItem("token"));
+const token = JSON.parse(localStorage.getItem("token"));
 
 //initialising states
 const initialState = {
   user: user ? user : null,
-  // token: token ? token : null,
+  token: token ? token : null,
   isPending: false,
   isSuccess: false,
   isError: false,
@@ -58,8 +58,6 @@ export const authSlice = createSlice({
     //   state.message = "";
     // },
     reset: (state) => {
-      localStorage.removeItem("user");
-      // localStorage.removeItem("token");
       state = { ...initialState };
     },
   },
@@ -72,10 +70,11 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isPending = false;
         state.user = action.payload;
+        state.message = "user created sucessfully";
       })
       .addCase(register.rejected, (state, action) => {
-        state.isPending = false;
         state.isError = true;
+        state.isPending = false;
         state.message = action.payload;
         state.user = null;
       })
@@ -87,17 +86,19 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isPending = false;
         state.user = action.payload;
+        state.message = "user logged in sucessfully";
       })
       .addCase(login.rejected, (state, action) => {
+        state.isError = true;
         state.isPending = false;
         state.isSuccess = false;
-        state.isError = true;
         state.message = action.payload;
         state.user = null;
       })
 
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+        state.token = null;
       });
   },
 });

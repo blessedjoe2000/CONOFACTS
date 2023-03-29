@@ -4,8 +4,8 @@ import postService from "./postService";
 const initialState = {
   posts: [],
   isPending: false,
-  isError: false,
   isSuccess: false,
+  isError: false,
   message: "",
 };
 
@@ -95,41 +95,41 @@ export const postSlice = createSlice({
         state.isPending = true;
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        state.isPending = false;
         state.isSuccess = true;
+        state.isPending = false;
         state.posts.push(action.payload);
-        state.message = "user created sucessfully";
+        state.message = "post created sucessfully";
       })
       .addCase(createPost.rejected, (state, action) => {
-        state.isPending = false;
         state.isError = true;
+        state.isPending = false;
         state.message = action.payload;
       })
       .addCase(getPosts.pending, (state) => {
         state.isPending = true;
       })
       .addCase(getPosts.fulfilled, (state, action) => {
-        state.isPending = false;
         state.isSuccess = true;
+        state.isPending = false;
         state.isError = false;
         state.posts = action.payload;
       })
       .addCase(getPosts.rejected, (state, action) => {
-        state.isPending = false;
         state.isError = true;
+        state.isPending = false;
         state.message = action.payload;
       })
       .addCase(updatePost.pending, (state) => {
         state.isPending = true;
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        state.isPending = false;
         state.isSuccess = true;
+        state.isPending = false;
         state.posts = action.payload;
       })
       .addCase(updatePost.rejected, (state, action) => {
-        state.isPending = false;
         state.isError = true;
+        state.isPending = false;
         state.message = action.payload;
       })
 
@@ -137,15 +137,15 @@ export const postSlice = createSlice({
         state.isPending = true;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        state.isPending = false;
         state.isSuccess = true;
+        state.isPending = false;
         state.posts = state.posts.filter(
           (post) => post._id !== action.payload.id
         );
       })
       .addCase(deletePost.rejected, (state, action) => {
-        state.isPending = false;
         state.isError = true;
+        state.isPending = false;
         state.message = action.payload;
       });
   },
