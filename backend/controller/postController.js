@@ -3,7 +3,6 @@ const Post = require("../models/postModel");
 const User = require("../models/userModel");
 
 //@desc get post
-//route GET/api/posts
 //access Private
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({ user: req.user.id });
@@ -11,7 +10,6 @@ const getPosts = asyncHandler(async (req, res) => {
 });
 
 //@desc set post
-//route POST/api/post
 //access Private
 const setPost = asyncHandler(async (req, res) => {
   const { _id, title, message } = req.body;
@@ -32,7 +30,6 @@ const setPost = asyncHandler(async (req, res) => {
 });
 
 //@desc update post with Id
-//route PUT/api/goals/id
 //access Private
 const updatePost = asyncHandler(async (req, res) => {
   const { id } = req.params;

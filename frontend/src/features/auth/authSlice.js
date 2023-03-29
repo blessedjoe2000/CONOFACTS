@@ -3,10 +3,12 @@ import authService from "./authService";
 
 //Get user from local storage
 const user = JSON.parse(localStorage.getItem("user"));
+// const token = JSON.parse(localStorage.getItem("token"));
 
 //initialising states
 const initialState = {
   user: user ? user : null,
+  // token: token ? token : null,
   isPending: false,
   isSuccess: false,
   isError: false,
@@ -49,11 +51,16 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // reset: (state) => {
+    //   state.isPending = false;
+    //   state.isSuccess = false;
+    //   state.isError = false;
+    //   state.message = "";
+    // },
     reset: (state) => {
-      state.isPending = false;
-      state.isSuccess = false;
-      state.isError = false;
-      state.message = "";
+      localStorage.removeItem("user");
+      // localStorage.removeItem("token");
+      state = { ...initialState };
     },
   },
   extraReducers: (builder) => {
