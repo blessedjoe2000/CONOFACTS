@@ -3,7 +3,6 @@ const Post = require("../models/postModel");
 const User = require("../models/userModel");
 
 //@desc get post
-//route GET/api/posts
 //access Private
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({ user: req.user.id });
@@ -11,7 +10,6 @@ const getPosts = asyncHandler(async (req, res) => {
 });
 
 //@desc set post
-//route POST/api/post
 //access Private
 const setPost = asyncHandler(async (req, res) => {
   const { _id, title, message } = req.body;
@@ -31,8 +29,7 @@ const setPost = asyncHandler(async (req, res) => {
   res.status(201).json({ post });
 });
 
-//@desc update goal with Id
-//route PUT/api/goals/id
+//@desc update post with Id
 //access Private
 const updatePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -44,14 +41,12 @@ const updatePost = asyncHandler(async (req, res) => {
     throw new Error("Post not found");
   }
 
-  const user = await User.findById(req.user.id);
-
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
-  if (post.user.toString() !== user.id) {
+  if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
@@ -72,16 +67,14 @@ const removePost = asyncHandler(async (req, res) => {
     throw new Error("post not found");
   }
 
-  const user = await User.findById(req.user.id);
-
   //check if user exist
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   //check if user id on post matches user id
-  if (post.user.toString() !== user.id) {
+  if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }

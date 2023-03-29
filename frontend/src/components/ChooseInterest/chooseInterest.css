@@ -16,20 +16,21 @@
 }
 
 .interest.highlight {
-  background-color: blue;
+  background-color: rgb(229, 118, 118);
   color: white;
 }
 
 .interest-next-btn {
   border: solid 1px rgb(228, 83, 83);
   border-radius: 10px;
-  color: rgb(228, 83, 83);
   padding: 0.5rem 2rem;
+  background-color: rgb(228, 83, 83);
+  color: white;
 }
 
 .interest-next-btn.disabled {
-  background-color: blue;
-  color: white;
+  background-color: rgb(227, 219, 219);
+  color: rgb(229, 118, 118);
 }
 
 .next-btn {

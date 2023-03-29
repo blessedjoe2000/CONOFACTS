@@ -155,17 +155,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //route GET/conofacts/users/id
 //access Private
 const getUserById = asyncHandler(async (req, res) => {
-  const { _id, name, email, username, dob, about, location } =
-    await User.findById(req.user.id);
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-    username,
-    dob,
-    about,
-    location,
-  });
+  res.status(200).json(req.user);
 });
 
 //@desc update user data

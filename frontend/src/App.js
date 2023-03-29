@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ChooseInterest from "./components/ChooseInterest/ChooseInterest";
+import Timeline from "./components/Timeline/Timeline";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/interest" element={<ChooseInterest />} />
+            <Route path="/timeline" element={<Timeline />} />
           </Routes>
         </div>
       </Router>
