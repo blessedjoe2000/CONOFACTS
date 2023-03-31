@@ -3,7 +3,6 @@ const Interest = require("../models/interestModel");
 
 const createInterest = asyncHandler(async (req, res) => {
   const { title } = req.body;
-  console.log("title", title);
 
   if (!title) {
     res.status(400);
@@ -14,8 +13,8 @@ const createInterest = asyncHandler(async (req, res) => {
 });
 
 const getInterests = asyncHandler(async (req, res) => {
-  const interest = await Interest.find();
-  res.status(200).json(interest);
+  const interests = await Interest.find();
+  res.status(200).json(interests);
 });
 
 module.exports = { createInterest, getInterests };

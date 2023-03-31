@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `http://localhost:8000/conofacts/posts/`;
+const API_URL = `/conofacts/posts/`;
 
 const createPost = async (postData, token) => {
   const config = {
@@ -9,7 +9,6 @@ const createPost = async (postData, token) => {
     },
   };
   const response = await axios.post(API_URL, postData, config);
-  console.log("post created done", response.data);
 
   return response.data;
 };

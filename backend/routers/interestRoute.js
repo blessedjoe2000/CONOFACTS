@@ -3,6 +3,7 @@ const {
   createInterest,
   getInterests,
 } = require("../controller/interestController");
+const protect = require("../middleware/authMiddleware");
 
 const interestRouter = express.Router();
 
