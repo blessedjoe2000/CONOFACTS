@@ -2,18 +2,19 @@ const asyncHandler = require("express-async-handler");
 const Interest = require("../models/interestModel");
 
 const createInterest = asyncHandler(async (req, res) => {
-  const { title } = req.body;
+  const { interest } = req.body;
 
-  if (!title) {
+  if (!interest) {
     res.status(400);
-    throw new Error("Please enter title");
+    throw new Error("Please enter interest");
   }
-  const interest = await Interest.create({ title });
-  res.status(201).json({ interest });
+  const createdInterest = await Interest.create({ interest });
+  res.status(201).json({ createdInterest });
 });
 
 const getInterests = asyncHandler(async (req, res) => {
   const interests = await Interest.find();
+  console.log("controller interest", interests);
   res.status(200).json(interests);
 });
 

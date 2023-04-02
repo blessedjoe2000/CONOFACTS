@@ -24,6 +24,12 @@ const getPosts = async (token) => {
   return response.data;
 };
 
+const getAllPosts = async () => {
+  const response = await axios.get(API_URL + "all");
+
+  return response.data;
+};
+
 const updatePost = async (postId, postData, token) => {
   const config = {
     headers: {
@@ -44,6 +50,12 @@ const deletePost = async (postId, token) => {
   return response.data;
 };
 
-const postService = { createPost, getPosts, updatePost, deletePost };
+const postService = {
+  createPost,
+  getPosts,
+  updatePost,
+  deletePost,
+  getAllPosts,
+};
 
 export default postService;

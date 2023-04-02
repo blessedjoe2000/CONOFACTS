@@ -9,7 +9,7 @@ const postSchema = mongoose.Schema(
       ref: "User",
     },
 
-    title: {
+    interest: {
       type: String,
       required: true,
     },

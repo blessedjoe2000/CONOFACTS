@@ -8,19 +8,24 @@ const getPosts = asyncHandler(async (req, res) => {
   res.status(200).json(posts);
 });
 
+const getAllPost = asyncHandler(async (req, res) => {
+  const posts = await Post.find();
+  res.status(200).json(posts);
+});
+
 //@desc set post
 //access Private
 const setPost = asyncHandler(async (req, res) => {
-  const { _id, title, message } = req.body;
+  const { _id, interest, message } = req.body;
 
-  if (!title) {
+  if (!interest) {
     res.status(400);
-    throw new Error("Please enter title");
+    throw new Error("Please select interest");
   }
 
   const post = await Post.create({
     id: _id,
-    title,
+    interest,
     message,
     user: req.user.id,
   });
@@ -87,4 +92,5 @@ module.exports = {
   setPost,
   updatePost,
   removePost,
+  getAllPost,
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `http://localhost:8000/conofacts/interests`;
+const API_URL = `/conofacts/interests`;
 
 //create interest
 const createInterest = async (postData) => {
@@ -14,7 +14,6 @@ const createInterest = async (postData) => {
 
 const getInterest = async () => {
   const response = await axios.get(API_URL);
-  console.log("response", response);
 
   return response.data;
 };

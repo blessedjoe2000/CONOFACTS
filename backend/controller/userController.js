@@ -7,7 +7,8 @@ const jwt = require("jsonwebtoken");
 //route POST/conofacts/user
 //access public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, username, dob, about, location } = req.body;
+  const { name, email, password, username, dob, about, location, interests } =
+    req.body;
 
   //make sure the name field is not empty
   if (!name) {
@@ -63,6 +64,7 @@ const registerUser = asyncHandler(async (req, res) => {
     dob,
     about,
     location,
+    interests,
   });
 
   if (user) {
@@ -161,8 +163,10 @@ const getUserById = asyncHandler(async (req, res) => {
 //@desc update user data
 //route PUT/conofacts/users/id
 //access Private
+
 const updateUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const { interests } = req.body;
 
   const user = await User.findById(id);
 
@@ -171,7 +175,9 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+  user.interests = interests || user.interests;
+
+  const updatedUser = await user.save();
 
   res.status(200).json({ updatedUser });
 });

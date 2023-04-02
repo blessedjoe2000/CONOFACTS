@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
 
 const interestModel = mongoose.Schema({
-  title: {
+  interest: {
     type: String,
-    require: [true, "enter interest category"],
+    enum: [
+      "Sports",
+      "Wildlife",
+      "Road Trip",
+      "Book Club",
+      "Games",
+      "Adventure",
+    ],
+    required: [true, "enter interest category"],
+    default: "Adventure",
   },
 });
 

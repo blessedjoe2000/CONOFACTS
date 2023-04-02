@@ -1,37 +1,43 @@
 const mongoose = require("mongoose");
 
 //create a schema template for user
-const UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: {true: 'please enter name'}
+      type: String,
+      required: { true: "please enter name" },
     },
     email: {
-        type: String,
-        required: {true: 'please enter email'},
+      type: String,
+      required: { true: "please enter email" },
     },
     password: {
-        type: String,
-        required: {true: 'please enter password'}
+      type: String,
+      required: { true: "please enter password" },
     },
     username: {
-        type: String,
-        required: {true: 'please enter username'}
+      type: String,
+      required: { true: "please enter username" },
     },
-    
+
     dob: {
-        type: Date,  
+      type: Date,
     },
     about: {
-        type: String,
+      type: String,
     },
     location: {
-        type: String
+      type: String,
     },
-},
-{
-    timestamps: true
-}
-)
+    interests: {
+      type: String,
+      enum: [],
+      default: "",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("User", UserSchema);

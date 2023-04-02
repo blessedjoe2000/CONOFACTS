@@ -32,6 +32,23 @@ const login = async (userData) => {
   }
 };
 
+//update user
+export const updateUser = async (userData) => {
+  try {
+    const response = await axios.put(`${API_URL}/${userData.id}`, userData, {
+      headers: {
+        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 //logout user
 const logout = () => {
   localStorage.removeItem("user");
@@ -42,6 +59,7 @@ const authService = {
   register,
   login,
   logout,
+  updateUser,
 };
 
 export default authService;

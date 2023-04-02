@@ -2,7 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import interestService from "./interestService";
 
 const initialState = {
-  interests: [],
+  interests: [
+    "Sports",
+    "Wildlife",
+    "Road Trip",
+    "Book Club",
+    "Games",
+    "Adventure",
+  ],
   isPending: false,
   isSuccess: false,
   isError: false,

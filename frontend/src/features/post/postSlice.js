@@ -28,11 +28,28 @@ export const createPost = createAsyncThunk(
 );
 
 export const getPosts = createAsyncThunk(
-  "posts/getAll",
+  "posts/getUserPost",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await postService.getPosts(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithVaue(message);
+    }
+  }
+);
+
+export const getAllPosts = createAsyncThunk(
+  "posts/getAllPost",
+  async (_, thunkAPI) => {
+    try {
+      return await postService.getAllPosts();
     } catch (error) {
       const message =
         (error.response &&
@@ -115,6 +132,21 @@ export const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(getPosts.rejected, (state, action) => {
+        state.isError = true;
+        state.isPending = false;
+        state.message = action.payload;
+      })
+
+      .addCase(getAllPosts.pending, (state) => {
+        state.isPending = true;
+      })
+      .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isPending = false;
+        state.isError = false;
+        state.posts = action.payload;
+      })
+      .addCase(getAllPosts.rejected, (state, action) => {
         state.isError = true;
         state.isPending = false;
         state.message = action.payload;
