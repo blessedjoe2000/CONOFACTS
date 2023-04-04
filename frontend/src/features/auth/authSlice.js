@@ -1,6 +1,6 @@
+import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import axios from "axios";
 import { updateUser } from "./authService";
 
 const API_URL = `conofacts/users`;

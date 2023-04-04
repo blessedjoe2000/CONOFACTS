@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
 * {
@@ -7,13 +8,12 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Mukta", sans-serif;
   height: 100vh;
 }
 
 a {
   text-decoration: none;
-  color: #000;
 }
 
 p {
@@ -41,38 +41,6 @@ h3 {
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 2rem;
-  border-bottom: 1px solid #e6e6e6;
-  margin-bottom: 60px;
-}
-
-.header ul {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header ul li {
-  margin-left: 20px;
-}
-
-.header ul li a {
-  display: flex;
-  align-items: center;
-}
-
-.header ul li a:hover {
-  color: #777;
-}
-
-.header ul li a svg {
-  margin-right: 5px;
 }
 
 .heading {
@@ -137,12 +105,11 @@ h3 {
 
 .btn {
   padding: 10px 20px;
-  border: 1px solid #000;
+  border: 1px solid rgb(99, 230, 190);
   border-radius: 5px;
-  background: #000;
+  background: rgb(99, 230, 190);
   color: #fff;
   font-size: 16px;
-  font-weight: 700;
   cursor: pointer;
   text-align: center;
   appearance: button;

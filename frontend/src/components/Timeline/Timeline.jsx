@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from "../../features/post/postSlice";
+import { useSelector } from "react-redux";
 import "./timeline.css";
 
 function Timeline() {
   const { posts } = useSelector((state) => state.posts);
-  const dispatch = useDispatch();
 
   return (
     <>
