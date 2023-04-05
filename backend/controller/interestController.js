@@ -14,7 +14,6 @@ const createInterest = asyncHandler(async (req, res) => {
 
 const getInterests = asyncHandler(async (req, res) => {
   const interests = await Interest.find();
-  console.log("controller interest", interests);
   res.status(200).json(interests);
 });
 

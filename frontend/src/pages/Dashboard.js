@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import PostForm from "../components/Timeline/PostForm";
+import PostForm from "../components/Postform/PostForm";
 import Timeline from "../components/Timeline/Timeline";
 import { getInterest } from "../features/interests/interestSlice";
 import { getAllPosts, reset } from "../features/post/postSlice";
@@ -37,10 +37,8 @@ function Dashboard() {
   return (
     <>
       <section className="heading">
-        <h1> {user && `Welcome ${user.username}`}</h1>
-        <p>Post Dashboard</p>
+        <h1> {user && `Welcome ${user.name}`}</h1>
       </section>
-      <section className="content"></section>
       <section className="content">
         <PostForm />
         <Timeline />

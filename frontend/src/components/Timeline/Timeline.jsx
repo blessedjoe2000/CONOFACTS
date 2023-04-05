@@ -10,11 +10,11 @@ function Timeline() {
       <div className="container">
         {posts.map((post) => (
           <div key={post._id} className="timeline">
-            <h2>{post.interest}</h2>
             <p className="timeline-message">{post.message}</p>
             <p className="timeline-date">{`Date: ${new Date(
               post.createdAt
             ).toLocaleDateString()}`}</p>
+            <h4>{post.interest}</h4>
           </div>
         ))}
       </div>

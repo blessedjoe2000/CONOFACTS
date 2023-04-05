@@ -2,6 +2,7 @@
 }
 
 .timeline {
-  /* border: rgb(228, 83, 83) solid 1px; */
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }

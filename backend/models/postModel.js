@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema(
 
     interest: {
       type: String,
-      required: true,
+      required: { true: "please choose interest" },
     },
     message: { type: String },
   },

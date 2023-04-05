@@ -59,7 +59,7 @@ function Header() {
             </li>
 
             <li>
-              <button className="btn" onClick={onLogout}>
+              <button className="btn-logout" onClick={onLogout}>
                 <FontAwesomeIcon icon={faSignOut} />
                 Logout
               </button>
