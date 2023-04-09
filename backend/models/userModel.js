@@ -30,9 +30,8 @@ const UserSchema = mongoose.Schema(
       type: String,
     },
     interests: {
-      type: String,
-      enum: [],
-      default: "",
+      type: [String], // change the type to an array of strings
+      default: [],
     },
   },
   {

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import { login, reset } from "../features/auth/authSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
+import "./pages.css";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -40,11 +42,15 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const userData = {
-      email,
-      password,
-    };
-    dispatch(login(userData));
+    if (!email || !password) {
+      toast.error("Please enter your email and password");
+    } else {
+      const userData = {
+        email,
+        password,
+      };
+      dispatch(login(userData));
+    }
   };
 
   if (isPending) {
@@ -54,8 +60,8 @@ function Login() {
   return (
     <>
       <section className="heading">
-        <h1>
-          <FaSignInAlt />
+        <h1 className="page-heading-icon">
+          <FontAwesomeIcon icon={faSignIn} />
           Login
         </h1>
         <p>Please login your account</p>

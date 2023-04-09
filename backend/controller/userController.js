@@ -76,6 +76,7 @@ const registerUser = asyncHandler(async (req, res) => {
       dob: user.dob,
       about: user.about,
       location: user.location,
+      interests: user.interests,
       token: generateToken(user._id),
     });
   } else {

@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
+import "./pages.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAddressBook } from "@fortawesome/free-solid-svg-icons";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -57,9 +60,17 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     if (password !== passwordConfirm) {
-      toast.error("Password do not match");
+      toast.error("Passwords do not match");
+    } else if (
+      name.trim() === "" ||
+      email.trim() === "" ||
+      password.trim() === "" ||
+      username.trim() === ""
+    ) {
+      toast.error(
+        "Please enter all required fields. Name, email, password and username"
+      );
     } else {
       const userData = {
         name,
@@ -73,18 +84,15 @@ function Register() {
       };
 
       dispatch(register(userData));
-    }
-
-    if (isPending) {
-      return <Spinner />;
+      toast.success("User registered successfully");
     }
   };
 
   return (
     <>
       <section className="heading">
-        <h1>
-          <FaUser />
+        <h1 className="page-heading-icon ">
+          <FontAwesomeIcon icon={faAddressBook} />
           Register
         </h1>
         <p>Please create an account</p>

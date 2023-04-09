@@ -75,12 +75,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // reset: (state) => {
-    //   state.isPending = false;
-    //   state.isSuccess = false;
-    //   state.isError = false;
-    //   state.message = "";
-    // },
     reset: (state) => {
       state = { ...initialState };
     },

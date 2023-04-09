@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../features/post/postSlice";
+import { toast } from "react-toastify";
 import "./postform.css";
 
 function PostForm() {
@@ -11,9 +12,13 @@ function PostForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost({ interest: selectedInterest, message }));
-    setSelectedInterest("");
-    setMessage("");
+    if (message === "") {
+      toast.error("Please enter post message");
+    } else {
+      dispatch(createPost({ interest: selectedInterest, message }));
+      setSelectedInterest("");
+      setMessage("");
+    }
   };
 
   return (
@@ -44,10 +49,10 @@ function PostForm() {
         <div className="form-group">
           <button
             className={`add-btn btn btn-block ${
-              selectedInterest === "" || message === "" ? "disabled" : ""
+              selectedInterest === "" ? "disabled" : ""
             }`}
             type="submit"
-            disabled={selectedInterest === "" || message === ""}
+            disabled={selectedInterest === ""}
           >
             Add post
           </button>
