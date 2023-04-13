@@ -2,17 +2,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import PostForm from "../components/Timeline/PostForm";
-import { getPosts, reset } from "../features/post/postSlice";
+import PostForm from "../components/Postform/PostForm";
+import Timeline from "../components/Timeline/Timeline";
+import { getInterest } from "../features/interests/interestSlice";
+import { getAllPosts, reset } from "../features/post/postSlice";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
-  const { posts, isPending, isError, message } = useSelector(
-    (state) => state.posts
-  );
+  const { isPending, isError, message } = useSelector((state) => state.posts);
+  const { interests } = useSelector((state) => state.interests);
 
   useEffect(() => {
     if (isError) {
@@ -22,14 +23,13 @@ function Dashboard() {
       navigate("/login");
     }
 
-    dispatch(getPosts());
+    dispatch(getAllPosts());
+    dispatch(getInterest());
 
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, dispatch]);
-
-  console.log(user);
+  }, [user, navigate, dispatch, isError, message, interests]);
 
   if (isPending) {
     return <Spinner />;
@@ -37,10 +37,11 @@ function Dashboard() {
   return (
     <>
       <section className="heading">
-        <h1> {user && `Welcome ${user.username}`}</h1>
+        <h1> {user && `Welcome ${user.name}`}</h1>
       </section>
       <section className="content">
-        {posts.length > 0 ? <PostForm /> : <p>You have no goals</p>}
+        <PostForm />
+        <Timeline />
       </section>
     </>
   );

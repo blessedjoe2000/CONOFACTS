@@ -1,29 +1,31 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../models/postModel");
-const User = require("../models/userModel");
 
 //@desc get post
-//route GET/api/posts
 //access Private
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({ user: req.user.id });
   res.status(200).json(posts);
 });
 
+const getAllPost = asyncHandler(async (req, res) => {
+  const posts = await Post.find();
+  res.status(200).json(posts);
+});
+
 //@desc set post
-//route POST/api/post
 //access Private
 const setPost = asyncHandler(async (req, res) => {
-  const { _id, title, message } = req.body;
+  const { _id, interest, message } = req.body;
 
-  if (!title) {
+  if (!interest) {
     res.status(400);
-    throw new Error("Please enter title");
+    throw new Error("Please select interest");
   }
 
   const post = await Post.create({
     id: _id,
-    title,
+    interest,
     message,
     user: req.user.id,
   });
@@ -31,8 +33,7 @@ const setPost = asyncHandler(async (req, res) => {
   res.status(201).json({ post });
 });
 
-//@desc update goal with Id
-//route PUT/api/goals/id
+//@desc update post with Id
 //access Private
 const updatePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -91,4 +92,5 @@ module.exports = {
   setPost,
   updatePost,
   removePost,
+  getAllPost,
 };

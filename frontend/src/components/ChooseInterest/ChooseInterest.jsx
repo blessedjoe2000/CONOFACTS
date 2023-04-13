@@ -19,7 +19,6 @@ function ChooseInterest() {
       setSelectedInterest(selectedInterest.filter((item) => item !== interest));
     } else {
       setSelectedInterest([...selectedInterest, interest]);
-      console.log(selectedInterest);
     }
   };
   const disabledNextBtn = selectedInterest.length < 2;
@@ -42,7 +41,7 @@ function ChooseInterest() {
         })}
       </div>
       <div className="next-btn">
-        <Link to="/timeline">
+        <Link to="/">
           <button
             disabled={disabledNextBtn}
             className={`interest-next-btn ${disabledNextBtn ? "disabled" : ""}`}
