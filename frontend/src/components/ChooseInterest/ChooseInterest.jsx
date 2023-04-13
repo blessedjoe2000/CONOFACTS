@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./chooseInterest.css";
 
 function ChooseInterest() {
@@ -21,7 +22,7 @@ function ChooseInterest() {
       console.log(selectedInterest);
     }
   };
-  const disabledNext = selectedInterest.length < 2;
+  const disabledNextBtn = selectedInterest.length < 2;
 
   return (
     <>
@@ -29,9 +30,11 @@ function ChooseInterest() {
         {interestArray.map((interest) => {
           return (
             <button
-              className="interest"
+              className={`interest ${
+                selectedInterest.includes(interest) ? "highlight" : ""
+              }`}
               value={interest}
-              onClick={handleInterest}
+              onClick={() => handleInterest(interest)}
             >
               {interest}
             </button>
@@ -39,12 +42,14 @@ function ChooseInterest() {
         })}
       </div>
       <div className="next-btn">
-        <button
-          disabled={disabledNext}
-          className={`interest-next-btn ${disabledNext ? "disabled" : ""}`}
-        >
-          Next
-        </button>
+        <Link to="/timeline">
+          <button
+            disabled={disabledNextBtn}
+            className={`interest-next-btn ${disabledNextBtn ? "disabled" : ""}`}
+          >
+            Next
+          </button>
+        </Link>
       </div>
     </>
   );
