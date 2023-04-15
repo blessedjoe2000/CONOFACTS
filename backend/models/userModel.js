@@ -31,7 +31,7 @@ const UserSchema = mongoose.Schema(
     },
     interests: {
       type: [String], // change the type to an array of strings
-      default: [],
+      default: [""],
     },
   },
   {

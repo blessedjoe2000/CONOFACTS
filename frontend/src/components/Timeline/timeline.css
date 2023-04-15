@@ -1,5 +1,12 @@
+.timeline-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
 .timeline {
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px; */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(99, 230, 190);
+  padding: 1rem;
 }

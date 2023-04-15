@@ -7,7 +7,7 @@ function Timeline() {
   return (
     <>
       <h1>Timeline</h1>
-      <div className="container">
+      <div className="timeline-container">
         {posts.map((post) => (
           <div key={post._id} className="timeline">
             <p className="timeline-message">{post.message}</p>

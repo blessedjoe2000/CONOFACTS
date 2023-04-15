@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -19,7 +18,6 @@ function Register() {
     dob: "",
     about: "",
     location: "",
-    interests: [],
   });
 
   const {
@@ -31,7 +29,6 @@ function Register() {
     dob,
     about,
     location,
-    interests,
   } = formData;
 
   const navigate = useNavigate();
@@ -80,13 +77,14 @@ function Register() {
         dob,
         about,
         location,
-        interests,
       };
 
       dispatch(register(userData));
-      toast.success("User registered successfully");
     }
   };
+  if (isPending) {
+    <Spinner />;
+  }
 
   return (
     <>
@@ -199,19 +197,6 @@ function Register() {
               id="location"
               value={location}
               placeholder="Enter location..."
-              onChange={onChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="interests">Interests:</label>
-            <input
-              className="form-control"
-              type="text"
-              name="interests"
-              id="interests"
-              value={interests}
-              placeholder="Enter interests..."
               onChange={onChange}
             />
           </div>
