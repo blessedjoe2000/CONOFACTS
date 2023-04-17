@@ -7,8 +7,8 @@ import Header from "./components/Header/Header";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ChooseInterest from "./components/ChooseInterest/ChooseInterest";
-import Timeline from "./components/Timeline/Timeline";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -20,8 +20,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/interest" element={<ChooseInterest />} />
-            <Route path="/timeline" element={<Timeline />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/editprofile" element={<EditProfile />} />
           </Routes>
         </div>
       </Router>

@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressBook } from "@fortawesome/free-solid-svg-icons";
 
 function Register() {
+  const [selectInterest, setSelectInterest] = useState([]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +20,14 @@ function Register() {
     dob: "",
     about: "",
     location: "",
+    interests: [
+      { name: "Sports", value: "sports" },
+      { name: "Wildlife", value: "wildlife" },
+      { name: "Road Trip", value: "road trip" },
+      { name: "Book Club", value: "book club" },
+      { name: "Games", value: "games" },
+      { name: "Adventure", value: "adventure" },
+    ],
   });
 
   const {
@@ -29,6 +39,7 @@ function Register() {
     dob,
     about,
     location,
+    interests,
   } = formData;
 
   const navigate = useNavigate();
@@ -43,7 +54,7 @@ function Register() {
       toast.error(message);
     }
     if (isSuccess || user) {
-      navigate("/interest");
+      navigate("/");
     }
     dispatch(reset());
   }, [user, isSuccess, isError, message, dispatch, navigate]);
@@ -53,6 +64,17 @@ function Register() {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleInterest = (e) => {
+    const interest = JSON.parse(e.target.value);
+    if (e.target.checked) {
+      setSelectInterest((prevInterest) => [...prevInterest, interest]);
+    } else {
+      setSelectInterest((prevInterest) =>
+        prevInterest.filter((inter) => inter.value !== interest.value)
+      );
+    }
   };
 
   const onSubmit = (e) => {
@@ -77,11 +99,13 @@ function Register() {
         dob,
         about,
         location,
+        interests: selectInterest,
       };
 
       dispatch(register(userData));
     }
   };
+
   if (isPending) {
     <Spinner />;
   }
@@ -199,6 +223,24 @@ function Register() {
               placeholder="Enter location..."
               onChange={onChange}
             />
+          </div>
+
+          <div className="form-group">
+            <label>Interests:</label>
+            <div className="interests">
+              {interests.map((interest, index) => (
+                <div key={index}>
+                  <input
+                    type="checkbox"
+                    name="interests"
+                    value={JSON.stringify(interest)}
+                    id={`interest-${index}`}
+                    onChange={handleInterest}
+                  />
+                  <label htmlFor={`interest-${index}`}>{interest.name}</label>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="form-group">

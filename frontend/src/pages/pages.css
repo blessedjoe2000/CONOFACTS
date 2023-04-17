@@ -1,3 +1,15 @@
 .page-heading-icon {
   color: rgb(99, 230, 190);
 }
+
+img {
+  width: 200px;
+  height: 200px;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 5rem 0;
+  text-align: start;
+}

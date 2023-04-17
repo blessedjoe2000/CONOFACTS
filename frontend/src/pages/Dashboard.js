@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import PostForm from "../components/Postform/PostForm";
 import Timeline from "../components/Timeline/Timeline";
-import { getInterest } from "../features/interests/interestSlice";
 import { getAllPosts, reset } from "../features/post/postSlice";
 
 function Dashboard() {
@@ -13,7 +12,6 @@ function Dashboard() {
 
   const { user } = useSelector((state) => state.auth);
   const { isPending, isError, message } = useSelector((state) => state.posts);
-  const { interests } = useSelector((state) => state.interests);
 
   useEffect(() => {
     if (isError) {
@@ -24,12 +22,11 @@ function Dashboard() {
     }
 
     dispatch(getAllPosts());
-    dispatch(getInterest());
 
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, dispatch, isError, message, interests]);
+  }, [user, navigate, dispatch, isError, message]);
 
   if (isPending) {
     return <Spinner />;
