@@ -167,7 +167,7 @@ const getUserById = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { interests } = req.body;
+  // const { interests } = req.body;
 
   const user = await User.findById(id);
 
@@ -176,9 +176,10 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  user.interests = interests || user.interests;
+  // user.interests = interests || user.interests;
 
-  const updatedUser = await user.save();
+  const updatedUser = await User.findOneAndUpdate(user.id);
+  console.log("backend updated user", updatedUser);
 
   res.status(200).json({ updatedUser });
 });

@@ -29,10 +29,12 @@ const UserSchema = mongoose.Schema(
     location: {
       type: String,
     },
-    interests: {
-      type: [String], // change the type to an array of strings
-      default: [],
-    },
+    interests: [
+      {
+        name: { type: String },
+        value: { type: String },
+      },
+    ],
   },
   {
     timestamps: true,

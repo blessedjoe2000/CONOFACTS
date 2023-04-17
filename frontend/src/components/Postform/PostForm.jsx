@@ -7,7 +7,8 @@ import "./postform.css";
 function PostForm() {
   const [message, setMessage] = useState("");
   const [selectedInterest, setSelectedInterest] = useState("");
-  const interests = useSelector((state) => state.interests.interests);
+
+  const userInterests = useSelector((state) => state.auth?.user?.interests);
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
@@ -21,6 +22,8 @@ function PostForm() {
     }
   };
 
+  // console.log("interest", userInterests);
+
   return (
     <section className="post-form">
       <form onSubmit={onSubmit}>
@@ -32,11 +35,12 @@ function PostForm() {
             onChange={(e) => setSelectedInterest(e.target.value)}
           >
             <option value="">Select an interest</option>
-            {interests.map((interest) => (
-              <option key={interest} value={interest}>
-                {interest}
-              </option>
-            ))}
+            {userInterests &&
+              userInterests.map((interest, index) => (
+                <option key={index} value={interest.name}>
+                  {interest.name}
+                </option>
+              ))}
           </select>
           <label htmlFor="text">Message:</label>
           <textarea

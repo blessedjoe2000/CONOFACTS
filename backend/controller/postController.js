@@ -61,6 +61,35 @@ const updatePost = asyncHandler(async (req, res) => {
   res.status(200).json(updatedPost);
 });
 
+const updateInterest = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  const { interests } = req.body;
+
+  post.interest = interests[0];
+
+  await post.save();
+
+  res.json(post);
+});
+
 const removePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -93,4 +122,5 @@ module.exports = {
   updatePost,
   removePost,
   getAllPost,
+  updateInterest,
 };

@@ -49,7 +49,7 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/profile">
                 <div className="nav-list">
                   <FontAwesomeIcon icon={faUser} />
                   Profile

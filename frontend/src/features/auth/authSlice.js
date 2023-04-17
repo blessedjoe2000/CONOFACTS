@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import { updateUser } from "./authService";
 
 const API_URL = `conofacts/users`;
 
@@ -50,13 +49,7 @@ export const update = createAsyncThunk(
   "auth/update",
   async (updatedUser, thunkAPI) => {
     try {
-      const response = await axios.put(
-        `${API_URL}/${updatedUser.id}`,
-        updatedUser
-      );
-      localStorage.setItem("user", JSON.stringify(response.data));
-      thunkAPI.dispatch(updateUser(response.data));
-      return response.data;
+      return await authService.updateUser(updatedUser);
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
