@@ -114,14 +114,19 @@ function EditProfile() {
 
           <div className="form-group">
             <label htmlFor="interests">Interests:</label>
-            <input
-              className="form-control"
-              type="text"
-              name="interests"
-              id="interests"
+            <select
+              id="interest"
               value={userData.interests}
               onChange={onChange}
-            />
+            >
+              <option value="">Select an interest</option>
+              {userData.interests &&
+                userData.interests.map((interest) => (
+                  <option key={interest._id} value={interest.name}>
+                    {interest.name}
+                  </option>
+                ))}
+            </select>
           </div>
 
           <div className="form-group">

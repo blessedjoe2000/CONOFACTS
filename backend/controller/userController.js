@@ -118,6 +118,7 @@ const loginUser = asyncHandler(async (req, res) => {
       dob: userByEmail.dob,
       about: userByEmail.about,
       location: userByEmail.location,
+      interests: userByEmail.interests,
       token: generateToken(userByEmail._id),
     });
   } else {
@@ -139,6 +140,7 @@ const loginUser = asyncHandler(async (req, res) => {
       dob: userByUsername.dob,
       about: userByUsername.about,
       location: userByUsername.location,
+      interests: userByUsername.location,
       token: generateToken(userByUsername._id),
     });
   } else {
