@@ -66,6 +66,7 @@ export const updateUser = async (userData) => {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
     });
+    console.log("response", response.data);
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }

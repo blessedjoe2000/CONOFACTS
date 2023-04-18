@@ -1,8 +1,5 @@
-import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-
-const API_URL = `conofacts/users`;
 
 //Get user from local storage
 const user = localStorage.getItem("user");

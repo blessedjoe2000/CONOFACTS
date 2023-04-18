@@ -18,7 +18,12 @@ function Profile() {
           <p>DOB: {formattedDob}</p>
           <p>About me: {about}</p>
           <p>Location: {location}</p>
-          <p>Interests: {interests}</p>
+          <p>
+            Interests:
+            {interests.map((interest) => (
+              <li key={interest._id}>{interest.name}</li>
+            ))}
+          </p>
         </div>
         <img
           src="https://www.w3schools.com/howto/img_avatar.png"
