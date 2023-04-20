@@ -28,6 +28,7 @@ const setPost = asyncHandler(async (req, res) => {
     interest,
     message,
     user: req.user.id,
+    username: req.user.username,
   });
 
   res.status(201).json({ post });
