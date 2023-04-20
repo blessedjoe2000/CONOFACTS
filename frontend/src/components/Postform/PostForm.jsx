@@ -17,6 +17,7 @@ function PostForm() {
       toast.error("Please enter post message");
     } else {
       dispatch(createPost({ interest: selectedInterest, message }));
+      toast.success("post added successfully");
       setSelectedInterest("");
       setMessage("");
     }

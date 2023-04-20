@@ -115,6 +115,8 @@ function EditProfile() {
           <div className="form-group">
             <label htmlFor="interests">Interests:</label>
             <select
+              multiple={true}
+              type="checkbox"
               id="interest"
               value={userData.interests}
               onChange={onChange}

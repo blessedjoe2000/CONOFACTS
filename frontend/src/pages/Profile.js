@@ -11,24 +11,39 @@ function Profile() {
     <>
       <h2>Profile</h2>
       <div className="profile-container">
-        <div className="proile-info">
-          <p>Name: {name}</p>
-          <p>Email: {email}</p>
-          <p>Username: {username}</p>
-          <p>DOB: {formattedDob}</p>
-          <p>About me: {about}</p>
-          <p>Location: {location}</p>
-          <p>
-            Interests:
-            {interests.map((interest) => (
-              <li key={interest._id}>{interest.name}</li>
-            ))}
-          </p>
-        </div>
+        <div>Member since </div>
         <img
           src="https://www.w3schools.com/howto/img_avatar.png"
           alt="avatar"
         />
+      </div>
+      <div className="proile-info">
+        <p className="details">
+          Name: <span className="details-value">{name}</span>
+        </p>
+        <p className="details">
+          Email: <span className="details">{email}</span>
+        </p>
+        <p className="details">
+          Username: <span className="details-value">{username}</span>
+        </p>
+        <p className="details">
+          DOB: <span className="details-value">{formattedDob}</span>
+        </p>
+        <p className="details">
+          About me: <span className="details-value">{about}</span>
+        </p>
+        <p className="details">
+          Location: <span className="details-value">{location}</span>
+        </p>
+        <p className="details">
+          Interests:
+          <span className="details-value">
+            {interests.map((interest) => (
+              <li key={interest._id}>{interest.name}</li>
+            ))}
+          </span>
+        </p>
       </div>
       <Link to="/editprofile">
         <button className="btn">edit</button>
