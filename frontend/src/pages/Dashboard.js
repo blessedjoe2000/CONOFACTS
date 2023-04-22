@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import PostForm from "../components/Postform/PostForm";
 import Timeline from "../components/Timeline/Timeline";
-import { getAllPosts, reset } from "../features/post/postSlice";
+import { getAllPosts, resetPost } from "../features/post/postSlice";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -18,13 +18,13 @@ function Dashboard() {
       console.log(message);
     }
     if (!user) {
-      navigate("/login");
+      return navigate("/login");
     }
 
     dispatch(getAllPosts());
 
     return () => {
-      dispatch(reset());
+      dispatch(resetPost());
     };
   }, [user, navigate, dispatch, isError, message]);
 

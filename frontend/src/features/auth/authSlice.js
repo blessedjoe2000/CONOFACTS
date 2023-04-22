@@ -66,13 +66,14 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state = { ...initialState };
+      state = initialState;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
         state.isPending = true;
+        state.isSuccess = false;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isSuccess = true;
@@ -83,12 +84,14 @@ export const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.isError = true;
         state.isPending = false;
+        state.isSuccess = false;
         state.message = action.payload;
         state.user = null;
       })
 
       .addCase(login.pending, (state) => {
         state.isPending = true;
+        state.isSuccess = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isSuccess = true;
@@ -105,12 +108,15 @@ export const authSlice = createSlice({
       })
 
       .addCase(logout.fulfilled, (state) => {
+        state.isSuccess = false;
         state.user = null;
         state.token = null;
+        state.message = "user logged out";
       })
 
       .addCase(update.pending, (state) => {
         state.isPending = true;
+        state.isSuccess = false;
       })
       .addCase(update.fulfilled, (state, action) => {
         state.isPending = false;
@@ -122,6 +128,7 @@ export const authSlice = createSlice({
       .addCase(update.rejected, (state, action) => {
         state.isPending = false;
         state.isError = true;
+        state.isSuccess = false;
         state.message = action.payload;
       });
   },

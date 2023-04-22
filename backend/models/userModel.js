@@ -26,6 +26,7 @@ const UserSchema = mongoose.Schema(
     about: {
       type: String,
     },
+
     location: {
       type: String,
     },
@@ -35,9 +36,10 @@ const UserSchema = mongoose.Schema(
         value: { type: String },
       },
     ],
+    memberSince: { type: Date, default: Date.now },
   },
   {
-    timestamps: true,
+    timestamps: { type: Date, default: Date.now },
   }
 );
 

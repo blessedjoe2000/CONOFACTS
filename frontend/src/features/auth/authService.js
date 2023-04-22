@@ -57,11 +57,11 @@ export const updateUser = async (userData) => {
     if (location && location.trim() !== "") {
       updatedData.location = location;
     }
-    if (interests && interests.trim() !== "") {
+    if (interests !== []) {
       updatedData.interests = interests;
     }
 
-    const response = await axios.put(`${API_URL}/${_id}`, updatedData, {
+    const response = await axios.patch(`${API_URL}/${_id}`, updatedData, {
       headers: {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
