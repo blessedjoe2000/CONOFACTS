@@ -15,9 +15,10 @@ function Register() {
     (state) => state.auth
   );
 
+  // console.log("error message", message);
   useEffect(() => {
     if (isError) {
-      if (message.includes("email")) {
+      if (message?.includes("email")) {
         toast.error("Email is already taken. Please use a different email.");
       } else {
         toast.error(message);

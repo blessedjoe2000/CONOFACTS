@@ -19,7 +19,8 @@ export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
-      return await authService.register(user);
+      const response = await authService.register(user);
+      return response;
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -73,20 +74,17 @@ export const authSlice = createSlice({
     builder
       .addCase(register.pending, (state) => {
         state.isPending = true;
-        state.isSuccess = false;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isPending = false;
         state.user = action.payload;
-        state.message = "user created sucessfully";
+        state.message = "user created successfully";
       })
       .addCase(register.rejected, (state, action) => {
-        state.isError = true;
         state.isPending = false;
-        state.isSuccess = false;
+        state.isError = true;
         state.message = action.payload;
-        state.user = null;
       })
 
       .addCase(login.pending, (state) => {

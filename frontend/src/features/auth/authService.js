@@ -12,8 +12,9 @@ const register = async (userData) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
     }
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
@@ -27,8 +28,9 @@ const login = async (userData) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
     }
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
@@ -71,8 +73,9 @@ export const updateUser = async (userData) => {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
