@@ -9,7 +9,10 @@ function EditProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [userData, setUserData] = useState(user);
+  const [userData, setUserData] = useState({
+    ...user,
+    dob: user.dob ? new Date(user.dob).toISOString().substr(0, 10) : "",
+  });
 
   const onChange = (e) => {
     setUserData({
@@ -21,7 +24,6 @@ function EditProfile() {
   const onSubmit = (e) => {
     const { _id, name, email, username, dob, about, location, interests } =
       userData;
-    console.log(_id, name, email, username, dob, about, location, interests);
     e.preventDefault();
     const updatedUser = {
       _id,

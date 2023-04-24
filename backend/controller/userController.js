@@ -77,7 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
       about: user.about,
       location: user.location,
       interests: user.interests,
-      memberSince: user.memberSince,
+      createdAt: user.createdAt,
       token: generateToken(user._id),
     });
   } else {
@@ -120,7 +120,7 @@ const loginUser = asyncHandler(async (req, res) => {
       about: userByEmail.about,
       location: userByEmail.location,
       interests: userByEmail.interests,
-      memberSince: userByEmail.memberSince,
+      createdAt: userByEmail.createdAt,
       token: generateToken(userByEmail._id),
     });
   } else {

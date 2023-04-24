@@ -36,7 +36,6 @@ const login = async (userData) => {
 
 //update user
 export const updateUser = async (userData) => {
-  console.log("user data", userData);
   try {
     const { _id, name, email, username, dob, about, location, interests } =
       userData; // Destructure the fields you want to update
@@ -68,11 +67,10 @@ export const updateUser = async (userData) => {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
     });
-    console.log("response", response.data);
     if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data.updatedUser));
     }
-    return response.data;
+    return response.data.updatedUser;
   } catch (error) {
     console.log(error);
     throw error;

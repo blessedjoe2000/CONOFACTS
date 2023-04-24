@@ -36,10 +36,9 @@ const UserSchema = mongoose.Schema(
         value: { type: String },
       },
     ],
-    memberSince: { type: Date, default: Date.now },
   },
   {
-    timestamps: { type: Date, default: Date.now },
+    timestamps: true,
   }
 );
 
