@@ -77,6 +77,18 @@ export const updateUser = async (userData) => {
   }
 };
 
+//get user by id
+export const getUserById = async (userId) => {
+  const response = await axios.get(`${API_URL}/${userId}`, {
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
+  console.log("response", response.data);
+
+  return response.data;
+};
+
 //logout user
 const logout = () => {
   localStorage.removeItem("user");
@@ -88,6 +100,7 @@ const authService = {
   login,
   logout,
   updateUser,
+  getUserById,
 };
 
 export default authService;

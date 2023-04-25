@@ -1,20 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 function Profile() {
   const { name, email, username, dob, about, location, interests, createdAt } =
     useSelector((state) => state?.auth?.user);
-  const user = useSelector((state) => state?.auth?.user);
+  const [userInLocalStorage, setUserInLocalStorage] = useState(
+    Boolean(localStorage.getItem("user"))
+  );
   const navigate = useNavigate();
 
-  console.log("user", user);
+  console.log("userInLocalStorage", userInLocalStorage);
 
   useEffect(() => {
-    if (!user) {
+    if (!userInLocalStorage) {
       navigate("/login");
     }
-  }, [user]);
+  }, [userInLocalStorage, navigate]);
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
@@ -25,7 +29,7 @@ function Profile() {
 
   return (
     <>
-      {user && (
+      {name && (
         <>
           <h2>Profile Information:</h2>
           <div className="profile-container">
@@ -59,11 +63,15 @@ function Profile() {
               Interests: <span className="details-value">{userInterests}</span>
             </div>
           </div>
+
+          <Link to="/editprofile">
+            <button className="btn">
+              <FontAwesomeIcon icon={faEdit} />
+              edit
+            </button>
+          </Link>
         </>
       )}
-      <Link to="/editprofile">
-        <button className="btn">edit</button>
-      </Link>
     </>
   );
 }

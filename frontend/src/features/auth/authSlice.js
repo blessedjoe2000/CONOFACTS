@@ -58,6 +58,21 @@ export const update = createAsyncThunk(
   }
 );
 
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  async (userId, thunkAPI) => {
+    try {
+      return await authService.getUserById(userId);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   return await authService.logout();
 });
@@ -124,6 +139,22 @@ export const authSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(state.user));
       })
       .addCase(update.rejected, (state, action) => {
+        state.isPending = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+
+      .addCase(getUser.pending, (state) => {
+        state.isPending = true;
+        state.isSuccess = false;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isPending = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
         state.isPending = false;
         state.isError = true;
         state.isSuccess = false;

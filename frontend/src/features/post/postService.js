@@ -40,16 +40,6 @@ const updatePost = async (postId, postData, token) => {
   return response.data;
 };
 
-const updateInterest = async (postId, postData, token) => {
-  const config = {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.patch(API_URL + postId, postData, config);
-  return response.data;
-};
-
 const deletePost = async (postId, token) => {
   const config = {
     headers: {

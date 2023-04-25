@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { update } from "../features/auth/authSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faBackward } from "@fortawesome/free-solid-svg-icons";
 
 function EditProfile() {
   const user = useSelector((state) => state.auth.user);
@@ -24,6 +26,7 @@ function EditProfile() {
   const onSubmit = (e) => {
     const { _id, name, email, username, dob, about, location, interests } =
       userData;
+
     e.preventDefault();
     const updatedUser = {
       _id,
@@ -123,7 +126,6 @@ function EditProfile() {
               value={userData.interests}
               onChange={onChange}
             >
-              <option value="">Select an interest</option>
               {userData.interests &&
                 userData.interests.map((interest) => (
                   <option key={interest._id} value={interest.name}>
@@ -133,8 +135,15 @@ function EditProfile() {
             </select>
           </div>
 
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
+          <div className="edit-btns">
+            <Link to="/profile">
+              <button className="btn">
+                <FontAwesomeIcon icon={faBackward} />
+                back
+              </button>
+            </Link>
+            <button type="submit" className="btn">
+              <FontAwesomeIcon icon={faSave} />
               Save
             </button>
           </div>
