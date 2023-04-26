@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 function Profile() {
   const { name, email, username, dob, about, location, interests, createdAt } =
     useSelector((state) => state?.auth?.user);
-  const [userInLocalStorage, setUserInLocalStorage] = useState(
-    Boolean(localStorage.getItem("user"))
-  );
-  const navigate = useNavigate();
-
-  console.log("userInLocalStorage", userInLocalStorage);
-
-  useEffect(() => {
-    if (!userInLocalStorage) {
-      navigate("/login");
-    }
-  }, [userInLocalStorage, navigate]);
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>

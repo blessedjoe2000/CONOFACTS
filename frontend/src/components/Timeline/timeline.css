@@ -10,3 +10,15 @@
   border: 1px solid rgb(99, 230, 190);
   padding: 1rem;
 }
+
+.timeline-btn {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+}
+
+.delete {
+  background-color: red;
+  border: 1px solid red;
+}

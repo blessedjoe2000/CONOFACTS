@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import EditPost from "./pages/EditPost";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/editpost" element={<EditPost />} />
           </Routes>
         </div>
       </Router>

@@ -36,7 +36,7 @@ const updatePost = async (postId, postData, token) => {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(API_URL + postId, postData, config);
+  const response = await axios.patch(API_URL + postId, postData, config);
   return response.data;
 };
 
