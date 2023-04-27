@@ -73,6 +73,21 @@ export const getUser = createAsyncThunk(
   }
 );
 
+// export const getPostUser = createAsyncThunk(
+//   "auth/getPostUser",
+//   async (userId, thunkAPI) => {
+//     try {
+//       return await authService.getPostUserById(userId);
+//     } catch (err) {
+//       const message =
+//         (err.response && err.response.data && err.response.data.message) ||
+//         err.message ||
+//         err.toString();
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   return await authService.logout();
 });
