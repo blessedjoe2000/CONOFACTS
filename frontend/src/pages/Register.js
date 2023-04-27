@@ -14,8 +14,6 @@ function Register() {
   const { user, token, isPending, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
-  console.log("message", message);
-  console.log("error", isError);
 
   useEffect(() => {
     if (isError) {
