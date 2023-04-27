@@ -15,7 +15,7 @@ userRouter.post("/login", loginUser);
 userRouter
   .route("/:id")
   .get(protect, getUserById)
-  .put(protect, updateUser)
+  .patch(protect, updateUser)
   .delete(protect, deleteUser);
 
 module.exports = { userRouter };

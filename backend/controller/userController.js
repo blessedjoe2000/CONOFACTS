@@ -38,17 +38,17 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExist = await User.findOne({ email });
 
   //check if user exist with username
-  const userUsernameExit = await User.findOne({ username });
+  // const userUsernameExit = await User.findOne({ username });
 
   if (userExist) {
-    res.status(400);
+    res.status(409);
     throw new Error("User already exist with this email, try another email");
   }
 
-  if (userUsernameExit) {
-    res.status(400);
-    throw new Error("username taken! Please choose another username");
-  }
+  // if (userUsernameExit) {
+  //   res.status(400);
+  //   throw new Error("username taken! Please choose another username");
+  // }
 
   //hash password
   //generate salt to encrypt password
@@ -77,6 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
       about: user.about,
       location: user.location,
       interests: user.interests,
+      createdAt: user.createdAt,
       token: generateToken(user._id),
     });
   } else {
@@ -89,7 +90,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //route POST/conofacts/user/login
 //access public
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, password } = req.body;
 
   if (!email) {
     res.status(400);
@@ -105,7 +106,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const userByEmail = await User.findOne({ email });
 
   //check for user with username
-  const userByUsername = await User.findOne({ username });
+  // const userByUsername = await User.findOne({ username });
 
   //if email exist compare login password with registration password
   //then return the user information
@@ -119,6 +120,7 @@ const loginUser = asyncHandler(async (req, res) => {
       about: userByEmail.about,
       location: userByEmail.location,
       interests: userByEmail.interests,
+      createdAt: userByEmail.createdAt,
       token: generateToken(userByEmail._id),
     });
   } else {
@@ -128,27 +130,27 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //if username exist compare login password with registration password
   //then return the user information
-  if (
-    userByUsername &&
-    (await bcrypt.compare(password, userByUsername.password))
-  ) {
-    res.status(200).json({
-      _id: userByUsername.id,
-      name: userByUsername.name,
-      email: userByUsername.email,
-      username: userByUsername.username,
-      dob: userByUsername.dob,
-      about: userByUsername.about,
-      location: userByUsername.location,
-      interests: userByUsername.location,
-      token: generateToken(userByUsername._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error("email or password is incorrect");
-  }
+  // if (
+  //   userByUsername &&
+  //   (await bcrypt.compare(password, userByUsername.password))
+  // ) {
+  //   res.status(200).json({
+  //     _id: userByUsername.id,
+  //     name: userByUsername.name,
+  //     email: userByUsername.email,
+  //     username: userByUsername.username,
+  //     dob: userByUsername.dob,
+  //     about: userByUsername.about,
+  //     location: userByUsername.location,
+  //     interests: userByUsername.location,
+  //     token: generateToken(userByUsername._id),
+  //   });
+  // } else {
+  //   res.status(400);
+  //   throw new Error("email or password is incorrect");
+  // }
 
-  if (!userByEmail || !userByUsername) {
+  if (!userByEmail) {
     res.status(400);
     throw new Error("user does not exit");
   }
@@ -160,7 +162,16 @@ const loginUser = asyncHandler(async (req, res) => {
 //route GET/conofacts/users/id
 //access Private
 const getUserById = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+
+  res.status(200).json(user);
 });
 
 //@desc update user data
@@ -180,8 +191,14 @@ const updateUser = asyncHandler(async (req, res) => {
 
   // user.interests = interests || user.interests;
 
-  const updatedUser = await User.findOneAndUpdate(user.id);
-  console.log("backend updated user", updatedUser);
+  // const updatedUser = await User.findOneAndUpdate(user.id);
+  // console.log("backend updated user", updatedUser);
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: id }, // find the user by their ID
+    req.body, // update the user with the request body
+    { new: true } // return the updated user object
+  );
 
   res.status(200).json({ updatedUser });
 });

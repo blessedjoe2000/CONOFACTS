@@ -103,9 +103,7 @@ export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    reset: (state) => {
-      state = { ...initialState };
-    },
+    resetPost: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -184,5 +182,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { reset } = postSlice.actions;
+export const { resetPost } = postSlice.actions;
 export default postSlice.reducer;

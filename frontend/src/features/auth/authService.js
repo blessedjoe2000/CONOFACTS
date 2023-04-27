@@ -12,8 +12,9 @@ const register = async (userData) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
     }
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
@@ -27,14 +28,14 @@ const login = async (userData) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
     }
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
 //update user
 export const updateUser = async (userData) => {
-  console.log("user data", userData);
   try {
     const { _id, name, email, username, dob, about, location, interests } =
       userData; // Destructure the fields you want to update
@@ -57,23 +58,35 @@ export const updateUser = async (userData) => {
     if (location && location.trim() !== "") {
       updatedData.location = location;
     }
-    if (interests && interests.trim() !== "") {
+    if (interests !== []) {
       updatedData.interests = interests;
     }
 
-    const response = await axios.put(`${API_URL}/${_id}`, updatedData, {
+    const response = await axios.patch(`${API_URL}/${_id}`, updatedData, {
       headers: {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
     });
-    console.log("response", response.data);
     if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data.updatedUser));
     }
-    return response.data;
-  } catch (err) {
-    console.log(err);
+    return response.data.updatedUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
+};
+
+//get user by id
+export const getUserById = async (userId) => {
+  const response = await axios.get(`${API_URL}/${userId}`, {
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
+  console.log("response", response.data);
+
+  return response.data;
 };
 
 //logout user
@@ -87,6 +100,7 @@ const authService = {
   login,
   logout,
   updateUser,
+  getUserById,
 };
 
 export default authService;

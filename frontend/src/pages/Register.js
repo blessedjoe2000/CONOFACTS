@@ -11,20 +11,24 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, token, isPending, isSuccess, isError, message } = useSelector(
+  const { user, isPending, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isError) {
-      return toast.error(message);
+      if (message.includes("email")) {
+        toast.error("Email is already taken. Please use a different email.");
+      } else {
+        toast.error(message);
+      }
     }
-    if (isSuccess || (user && token)) {
-      toast.success("registration successful");
+    if (isSuccess && user) {
+      toast.success("Registration successful");
       navigate("/");
     }
     dispatch(reset());
-  }, [user, token, isSuccess, isError, message, dispatch, navigate]);
+  }, [user, isSuccess, isError, message, dispatch, navigate]);
 
   if (isPending) {
     return <Spinner />;

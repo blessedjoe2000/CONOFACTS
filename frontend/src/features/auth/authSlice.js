@@ -19,7 +19,8 @@ export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
-      return await authService.register(user);
+      const response = await authService.register(user);
+      return response;
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -57,6 +58,21 @@ export const update = createAsyncThunk(
   }
 );
 
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  async (userId, thunkAPI) => {
+    try {
+      return await authService.getUserById(userId);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   return await authService.logout();
 });
@@ -66,7 +82,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state = { ...initialState };
+      state = initialState;
     },
   },
   extraReducers: (builder) => {
@@ -78,17 +94,17 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isPending = false;
         state.user = action.payload;
-        state.message = "user created sucessfully";
+        state.message = "user created successfully";
       })
       .addCase(register.rejected, (state, action) => {
-        state.isError = true;
         state.isPending = false;
+        state.isError = true;
         state.message = action.payload;
-        state.user = null;
       })
 
       .addCase(login.pending, (state) => {
         state.isPending = true;
+        state.isSuccess = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isSuccess = true;
@@ -105,12 +121,15 @@ export const authSlice = createSlice({
       })
 
       .addCase(logout.fulfilled, (state) => {
+        state.isSuccess = false;
         state.user = null;
         state.token = null;
+        state.message = "user logged out";
       })
 
       .addCase(update.pending, (state) => {
         state.isPending = true;
+        state.isSuccess = false;
       })
       .addCase(update.fulfilled, (state, action) => {
         state.isPending = false;
@@ -122,6 +141,23 @@ export const authSlice = createSlice({
       .addCase(update.rejected, (state, action) => {
         state.isPending = false;
         state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+
+      .addCase(getUser.pending, (state) => {
+        state.isPending = true;
+        state.isSuccess = false;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isPending = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isPending = false;
+        state.isError = true;
+        state.isSuccess = false;
         state.message = action.payload;
       });
   },

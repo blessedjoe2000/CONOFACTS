@@ -26,6 +26,7 @@ const UserSchema = mongoose.Schema(
     about: {
       type: String,
     },
+
     location: {
       type: String,
     },

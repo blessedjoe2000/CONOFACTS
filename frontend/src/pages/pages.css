@@ -17,3 +17,9 @@ img {
 .details {
   padding: 0.5rem 0;
 }
+
+.edit-btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+}
