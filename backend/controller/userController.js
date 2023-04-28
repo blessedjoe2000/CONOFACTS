@@ -174,29 +174,6 @@ const getUserById = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-const getPostUserById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const user = await User.findById(id);
-
-  if (!user) {
-    res.status(400);
-    throw new Error("User not found");
-  }
-
-  res.status(200).json({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    username: user.username,
-    dob: user.dob,
-    about: user.about,
-    location: user.location,
-    interests: user.interests,
-    createdAt: user.createdAt,
-  });
-});
-
 //@desc update user data
 //route PUT/conofacts/users/id
 //access Private
@@ -254,7 +231,6 @@ module.exports = {
   registerUser,
   loginUser,
   getUserById,
-  getPostUserById,
   updateUser,
   deleteUser,
 };

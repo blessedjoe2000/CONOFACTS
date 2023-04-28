@@ -89,18 +89,6 @@ export const getUserById = async (userId) => {
   return response.data;
 };
 
-// //get postuser by id
-// export const getPostUserById = async (userId) => {
-//   const response = await axios.get(`${API_URL}/postuser/${userId}`, {
-//     headers: {
-//       Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-//     },
-//   });
-//   console.log("response", response.data);
-
-//   return response.data;
-// };
-
 //logout user
 const logout = () => {
   localStorage.removeItem("user");
@@ -113,7 +101,6 @@ const authService = {
   logout,
   updateUser,
   getUserById,
-  // getPostUserById,
 };
 
 export default authService;

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./timeline.css";
 import { Link } from "react-router-dom";
+import { getUser } from "../../features/auth/authSlice";
 import { deletePost } from "../../features/post/postSlice";
-import { getPostUser } from "../../features/postUser/postUserSlice";
 import { useEffect } from "react";
 
 function Timeline() {
@@ -11,6 +11,7 @@ function Timeline() {
   const { posts } = useSelector((state) => state.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
+  console.log("user", user);
 
   console.log("posts", posts);
 
@@ -18,8 +19,8 @@ function Timeline() {
     userInterest?.includes(post.interest)
   );
 
-  const handleUsername = (id) => {
-    dispatch(getPostUser(id));
+  const handleClick = (id) => {
+    dispatch(getUser(id));
   };
 
   const handleDelete = (id) => {
@@ -44,9 +45,9 @@ function Timeline() {
               <p>
                 User:{" "}
                 <Link
-                  to={`/postuser/${post.user}`}
+                  to={`/conofacts/users/${post.user}`}
                   className="timeline-username"
-                  onClick={() => handleUsername(post.user)}
+                  onClick={() => handleClick(post.user)}
                 >
                   {post.username}
                 </Link>
