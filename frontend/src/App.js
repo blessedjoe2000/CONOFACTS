@@ -23,12 +23,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<EditProfile />} />
-<<<<<<< HEAD
-            <Route path="/editpost/:id" element={<EditPost />} />
-            <Route path="/postuser/:id" element={<ViewUserProfile />} />
-=======
             <Route path="/editpost" element={<EditPost />} />
->>>>>>> parent of 3d5717d... view post user profile done
           </Routes>
         </div>
       </Router>

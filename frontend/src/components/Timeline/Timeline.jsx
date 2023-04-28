@@ -13,8 +13,6 @@ function Timeline() {
   const userInterest = user?.interests?.map((interest) => interest.name);
   console.log("user", user);
 
-  console.log("posts", posts);
-
   const userPosts = posts?.filter((post) =>
     userInterest?.includes(post.interest)
   );
