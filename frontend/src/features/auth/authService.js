@@ -105,6 +105,7 @@ export const getUserById = async (userId) => {
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("postUser");
 };
 
 const authService = {

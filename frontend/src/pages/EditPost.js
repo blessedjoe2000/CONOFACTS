@@ -2,32 +2,26 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { updatePost } from "../features/post/postSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function EditPost() {
-  const [message, setMessage] = useState();
-  const [selectedInterest, setSelectedInterest] = useState("");
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const userInterests = useSelector((state) => state.auth?.user?.interests);
-  const { posts } = useSelector((state) => state.posts);
-  const user = useSelector((state) => state.auth.user);
-  const userInterest = user?.interests?.map((interest) => interest.name);
+  const { post } = useSelector((state) => state.posts);
+  const { _id, interest, message } = post;
 
-  const userPosts = posts?.filter((post) =>
-    userInterest?.includes(post.interest)
-  );
+  console.log("post", post);
+  console.log("id", _id);
 
-  console.log("posts", posts);
+  console.log("interest", interest);
+  const [postMessage, setPostMessage] = useState(message);
+  const [postInterest, setPostInterest] = useState(interest);
 
   const handleClick = (id) => {
-    if (message === "") {
-      toast.error("Please enter post message");
-    } else {
-      dispatch(updatePost(id));
-      toast.success("post updated");
-    }
+    dispatch(updatePost(id));
+    toast.success("post updated");
+    navigate("/");
   };
   return (
     <>
@@ -37,23 +31,15 @@ function EditPost() {
             <label htmlFor="interest">Interest:</label>
             <select
               id="interest"
-              value={selectedInterest}
-              onChange={(e) => setSelectedInterest(e.target.value)}
-            >
-              <option value="">Select an interest</option>
-              {userInterests &&
-                userInterests.map((interest, index) => (
-                  <option key={index} value={interest.name}>
-                    {interest.name}
-                  </option>
-                ))}
-            </select>
+              value={postInterest}
+              onChange={(e) => setPostInterest(e.target.value)}
+            ></select>
             <label htmlFor="text">Message:</label>
             <textarea
               id="text"
               name="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              value={postMessage}
+              onChange={(e) => setPostMessage(e.target.value)}
             ></textarea>
           </div>
           <div className="form-group edit-post-btn">
@@ -61,17 +47,14 @@ function EditPost() {
               <button className="btn">back</button>
             </Link>
             <button
-              className={`add-btn btn  ${
-                selectedInterest === "" ? "disabled" : ""
-              }`}
+              className="add-btn btn"
               type="submit"
-              disabled={selectedInterest === ""}
+              onClick={() => handleClick(_id)}
             >
               save
             </button>
           </div>
         </form>
-        <section className="add-post-divider"></section>
       </section>
     </>
   );

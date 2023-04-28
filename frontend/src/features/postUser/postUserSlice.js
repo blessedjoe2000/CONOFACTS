@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const getPostUser = createAsyncThunk(
-  "auth/getPostUser",
+  "postUser/getPostUser",
   async (userId, thunkAPI) => {
     try {
       return await postUserService.getPostUserById(userId);
@@ -45,7 +45,7 @@ export const postUserSlice = createSlice({
       .addCase(getPostUser.fulfilled, (state, action) => {
         state.isPending = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.postUser = action.payload;
       })
       .addCase(getPostUser.rejected, (state, action) => {
         state.isPending = false;

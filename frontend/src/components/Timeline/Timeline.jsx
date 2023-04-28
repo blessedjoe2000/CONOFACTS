@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./timeline.css";
 import { Link, useNavigate } from "react-router-dom";
-import { deletePost } from "../../features/post/postSlice";
+import { deletePost, getPostById } from "../../features/post/postSlice";
 import { getPostUser } from "../../features/postUser/postUserSlice";
-import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Timeline() {
   const dispatch = useDispatch();
@@ -24,9 +24,15 @@ function Timeline() {
 
   const handleDelete = (id) => {
     dispatch(deletePost(id));
+    toast.success("post deleted");
+    navigate("/");
   };
 
-  useEffect(() => {}, [dispatch, posts, user]);
+  const handleEdit = (id) => {
+    dispatch(getPostById(id));
+  };
+
+  // useEffect(() => {}, [userPosts]);
 
   return (
     <>
@@ -53,7 +59,10 @@ function Timeline() {
               </p>
               {post.username === user.username && (
                 <div className="timeline-btn">
-                  <Link to="/editpost">
+                  <Link
+                    to={`/editpost/${post._id}`}
+                    onClick={() => handleEdit(post._id)}
+                  >
                     <button className="btn">edit</button>
                   </Link>
                   <button

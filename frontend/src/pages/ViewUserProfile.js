@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 function Profile() {
   const { name, email, username, dob, about, location, interests, createdAt } =
-    JSON.parse(localStorage.getItem("postUser"));
+    useSelector((state) => state.postUser.postUser);
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
