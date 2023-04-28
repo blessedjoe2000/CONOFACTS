@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 function Profile() {
   const { name, email, username, dob, about, location, interests, createdAt } =
     JSON.parse(localStorage.getItem("postUser"));

@@ -12,14 +12,8 @@ function EditPost() {
 
   const userInterests = useSelector((state) => state.auth?.user?.interests);
   const { posts } = useSelector((state) => state.posts);
-  const user = useSelector((state) => state.auth.user);
-  const userInterest = user?.interests?.map((interest) => interest.name);
 
-  const userPosts = posts?.filter((post) =>
-    userInterest?.includes(post.interest)
-  );
-
-  console.log("posts", posts);
+  // posts.map((post) => {});
 
   const handleClick = (id) => {
     if (message === "") {

@@ -13,19 +13,24 @@ const createPost = async (postData, token) => {
   return response.data;
 };
 
-const getPosts = async (token) => {
+const getPostsByUser = async (token) => {
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.get(`${API_URL}/user`, config);
+
+  return response.data;
+};
+
+const getAllPosts = async (token) => {
   const config = {
     headers: {
       authorization: `Bearer ${token}`,
     },
   };
   const response = await axios.get(API_URL, config);
-
-  return response.data;
-};
-
-const getAllPosts = async () => {
-  const response = await axios.get(API_URL + "all");
 
   return response.data;
 };
@@ -52,7 +57,7 @@ const deletePost = async (postId, token) => {
 
 const postService = {
   createPost,
-  getPosts,
+  getPostsByUser,
   updatePost,
   deletePost,
   getAllPosts,

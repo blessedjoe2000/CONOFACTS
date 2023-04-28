@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./timeline.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deletePost } from "../../features/post/postSlice";
 import { getPostUser } from "../../features/postUser/postUserSlice";
 import { useEffect } from "react";
 
 function Timeline() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { posts } = useSelector((state) => state.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
+
+  console.log("posts", posts);
 
   const userPosts = posts?.filter((post) =>
     userInterest?.includes(post.interest)
@@ -19,7 +20,6 @@ function Timeline() {
 
   const handleUsername = (id) => {
     dispatch(getPostUser(id));
-    navigate("/postuser");
   };
 
   const handleDelete = (id) => {
@@ -53,7 +53,7 @@ function Timeline() {
               </p>
               {post.username === user.username && (
                 <div className="timeline-btn">
-                  <Link to="/editpost">
+                  <Link to={`/editpost/${post._id}`}>
                     <button className="btn">edit</button>
                   </Link>
                   <button
