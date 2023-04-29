@@ -9,7 +9,7 @@ function Timeline() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { posts } = useSelector((state) => state.posts);
+  const { posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
 

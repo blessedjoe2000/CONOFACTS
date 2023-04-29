@@ -46,13 +46,14 @@ const getPostById = async (postId, token) => {
   return response.data;
 };
 
-const updatePost = async (postId, postData, token) => {
+const updatePost = async (postData, token) => {
+  const { _id } = postData;
   const config = {
     headers: {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.patch(API_URL + postId, postData, config);
+  const response = await axios.patch(API_URL + _id, postData, config);
   return response.data;
 };
 

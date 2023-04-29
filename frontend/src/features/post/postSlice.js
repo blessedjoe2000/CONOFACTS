@@ -82,10 +82,10 @@ export const getPostById = createAsyncThunk(
 
 export const updatePost = createAsyncThunk(
   "posts/update",
-  async (id, postData, thunkAPI) => {
+  async (postData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.updatePost(id, postData, token);
+      return await postService.updatePost(postData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -131,7 +131,7 @@ export const postSlice = createSlice({
         state.isSuccess = true;
         state.isPending = false;
         state.posts.push(action.payload);
-        state.message = "post created sucessfully";
+        state.message = "post created successfully";
       })
       .addCase(createPost.rejected, (state, action) => {
         state.isError = true;
@@ -191,6 +191,7 @@ export const postSlice = createSlice({
       .addCase(updatePost.rejected, (state, action) => {
         state.isError = true;
         state.isPending = false;
+        state.isSuccess = false;
         state.message = action.payload;
       })
 

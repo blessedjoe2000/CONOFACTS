@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { updatePost } from "../features/post/postSlice";
@@ -8,32 +8,29 @@ function EditPost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { post } = useSelector((state) => state.posts);
-  const { _id, interest, message } = post;
+  const { _id, interest, message } = useSelector((state) => state.posts.posts);
 
-  console.log("post", post);
-  console.log("id", _id);
+  const [postMessage, setPostMessage] = useState("");
 
-  console.log("interest", interest);
-  const [postMessage, setPostMessage] = useState(message);
-  const [postInterest, setPostInterest] = useState(interest);
+  useEffect(() => {
+    setPostMessage(message);
+  }, [message]);
 
-  const handleClick = (id) => {
-    dispatch(updatePost(id));
+  console.log("message", postMessage);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updatePost({ _id, message: postMessage }));
     toast.success("post updated");
     navigate("/");
   };
   return (
     <>
       <section className="post-form">
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="interest">Interest:</label>
-            <select
-              id="interest"
-              value={postInterest}
-              onChange={(e) => setPostInterest(e.target.value)}
-            ></select>
+            <input type="text" defaultValue={interest} />
             <label htmlFor="text">Message:</label>
             <textarea
               id="text"
@@ -46,11 +43,7 @@ function EditPost() {
             <Link to="/">
               <button className="btn">back</button>
             </Link>
-            <button
-              className="add-btn btn"
-              type="submit"
-              onClick={() => handleClick(_id)}
-            >
+            <button className="add-btn btn" type="submit">
               save
             </button>
           </div>

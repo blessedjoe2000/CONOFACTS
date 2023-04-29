@@ -184,7 +184,6 @@ const getPostUserById = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  console.log("user in controller", user);
   res.status(200).json({
     _id: user._id,
     name: user.name,
