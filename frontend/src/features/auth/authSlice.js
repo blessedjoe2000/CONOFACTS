@@ -58,6 +58,21 @@ export const update = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "auth/delete",
+  async (userId, thunkAPI) => {
+    try {
+      return await authService.deleteUser(userId);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const getUser = createAsyncThunk(
   "auth/getUser",
   async (userId, thunkAPI) => {
@@ -72,21 +87,6 @@ export const getUser = createAsyncThunk(
     }
   }
 );
-
-// export const getPostUser = createAsyncThunk(
-//   "auth/getPostUser",
-//   async (userId, thunkAPI) => {
-//     try {
-//       return await authService.getPostUserById(userId);
-//     } catch (err) {
-//       const message =
-//         (err.response && err.response.data && err.response.data.message) ||
-//         err.message ||
-//         err.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   return await authService.logout();
@@ -170,6 +170,24 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.isPending = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.isPending = true;
+        state.isSuccess = false;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.isPending = false;
+        state.isSuccess = true;
+        state.user = state.auth.user.filter(
+          (user) => user._id !== action.payload._id
+        );
+        state.message = "user deleted successfully";
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.isPending = false;
         state.isError = true;
         state.isSuccess = false;

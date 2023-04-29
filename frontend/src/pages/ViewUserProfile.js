@@ -1,8 +1,16 @@
 import { useSelector } from "react-redux";
+import Spinner from "../components/Spinner";
 
 function Profile() {
+  const user = useSelector((state) => state?.postUser?.postUser);
+
+  if (!user) {
+    // return a loading indicator or handle the absence of user data in some other way
+    return <Spinner />;
+  }
+
   const { name, email, username, dob, about, location, interests, createdAt } =
-    useSelector((state) => state.postUser.postUser);
+    user;
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>

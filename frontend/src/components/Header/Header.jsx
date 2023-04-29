@@ -12,6 +12,7 @@ import {
   faAddressBook,
 } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
+import { resetPostUser } from "../../features/postUser/postUserSlice";
 
 function Header() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Header() {
     dispatch(logout());
     dispatch(reset());
     dispatch(resetPost());
+    dispatch(resetPostUser());
 
     navigate("/login");
   };

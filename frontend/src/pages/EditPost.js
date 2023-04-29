@@ -16,13 +16,24 @@ function EditPost() {
     setPostMessage(message);
   }, [message]);
 
-  console.log("message", postMessage);
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(updatePost({ _id, message: postMessage }));
+  //   toast.success("post updated");
+  //   navigate("/");
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(updatePost({ _id, message: postMessage }));
-    toast.success("post updated");
-    navigate("/");
+    dispatch(updatePost({ _id, message: postMessage }))
+      .unwrap()
+      .then(() => {
+        toast.success("post updated");
+        navigate("/"); // Navigate to the main timeline
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>

@@ -42,7 +42,7 @@ const getPostById = async (postId, token) => {
     },
   };
   const response = await axios.get(API_URL + postId, config);
-  console.log("service post", response.data);
+
   return response.data;
 };
 

@@ -202,7 +202,7 @@ export const postSlice = createSlice({
         state.isSuccess = true;
         state.isPending = false;
         state.posts = state.posts.filter(
-          (post) => post._id !== action.payload.id
+          (post) => post._id !== action.payload._id
         );
       })
       .addCase(deletePost.rejected, (state, action) => {

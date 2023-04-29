@@ -9,7 +9,6 @@ export const getPostUserById = async (userId) => {
       Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
     },
   });
-  localStorage.setItem("postUser", JSON.stringify(response.data));
 
   return response.data;
 };

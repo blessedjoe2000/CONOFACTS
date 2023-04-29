@@ -1,11 +1,24 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-
+import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { deleteUser } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
 function Profile() {
-  const { name, email, username, dob, about, location, interests, createdAt } =
-    useSelector((state) => state?.auth?.user);
+  const {
+    _id,
+    name,
+    email,
+    username,
+    dob,
+    about,
+    location,
+    interests,
+    createdAt,
+  } = useSelector((state) => state?.auth?.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
@@ -13,6 +26,12 @@ function Profile() {
 
   const formattedMemberSince = new Date(createdAt).toLocaleDateString();
   const formattedDob = new Date(dob).toLocaleDateString();
+
+  const handleDelete = (_id) => {
+    dispatch(deleteUser(_id));
+    toast.success("user delete successfully");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -51,12 +70,18 @@ function Profile() {
             </div>
           </div>
 
-          <Link to="/editprofile">
-            <button className="btn">
-              <FontAwesomeIcon icon={faEdit} />
-              edit
+          <div className="profile-btn">
+            <Link to="/editprofile">
+              <button className="btn">
+                <FontAwesomeIcon icon={faEdit} />
+                edit
+              </button>
+            </Link>
+            <button className="btn" onClick={() => handleDelete(_id)}>
+              <FontAwesomeIcon icon={faRemove} />
+              delete
             </button>
-          </Link>
+          </div>
         </>
       )}
     </>

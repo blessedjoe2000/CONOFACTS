@@ -1,11 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postUserService from "./postUserService";
 
-//Get user from local storage
-const postUser = localStorage.getItem("postUser");
-
 const initialState = {
-  postUser: postUser ? JSON.parse(postUser) : null,
+  postUser: null,
   isPending: false,
   isSuccess: false,
   isError: false,
@@ -31,7 +28,7 @@ export const postUserSlice = createSlice({
   name: "postUser",
   initialState,
   reducers: {
-    reset: (state) => {
+    resetPostUser: (state) => {
       state = initialState;
     },
   },
@@ -56,5 +53,5 @@ export const postUserSlice = createSlice({
   },
 });
 
-export const { reset } = postUserSlice.actions;
+export const { resetPostUser } = postUserSlice.actions;
 export default postUserSlice.reducer;
