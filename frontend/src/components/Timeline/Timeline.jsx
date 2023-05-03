@@ -34,22 +34,6 @@ function Timeline() {
     setShowModal(false);
   };
 
-  // useEffect(() => {
-  //   const updatedUserPosts = posts?.filter((post) =>
-  //     userInterest?.includes(post.interest)
-  //   );
-  //   setUserPosts(updatedUserPosts);
-  // }, [posts]);
-
-  // useEffect(() => {
-  //   if (Array.isArray(posts) && posts.length > 0) {
-  //     const updatedUserPosts = posts.filter((post) =>
-  //       userInterest?.includes(post.interest)
-  //     );
-  //     setUserPosts(updatedUserPosts);
-  //   }
-  // }, [posts]);
-
   useEffect(() => {
     if (Array.isArray(posts) && posts.length > 0) {
       const updatedUserPosts = posts.filter((post) =>
@@ -63,29 +47,6 @@ function Timeline() {
     dispatch(getPostUser(id));
     navigate("/postuser");
   };
-
-  // const handleDelete = (id) => {
-  //   dispatch(deletePost(id));
-  //   toast.success("post deleted");
-  //   navigate("/");
-  // };
-
-  // const handleDelete = (id) => {
-  //   dispatch(deletePost(id))
-  //     .unwrap()
-  //     .then(() => {
-  //       toast.success("post deleted");
-  //       // Remove the deleted post from the state
-  //       const updatedPosts = userPosts.filter((post) => post._id !== id);
-  //       console.log("updated post", updatedPosts);
-  //       setUserPosts(updatedPosts); // Update the userPosts state variable
-  //       navigate("/profile");
-  //       console.log("detete btn posts", userPosts);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   const handleDelete = async () => {
     if (postToDelete) {
