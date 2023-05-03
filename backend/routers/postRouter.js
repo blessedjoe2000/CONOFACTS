@@ -1,22 +1,24 @@
 const express = require("express");
 const {
-  getPostsByUser,
+  getUserPosts,
   createPost,
   updatePost,
   removePost,
-  getAllPosts,
-  getPostbyId,
+  getAllPost,
+  getPostById,
+  deleteManyPost,
 } = require("../controller/postController");
 const protect = require("../middleware/authMiddleware");
 
 const postRouter = express.Router();
 
-postRouter.route("/").get(protect, getAllPosts).post(protect, createPost);
+postRouter.route("/").get(getAllPost).post(protect, createPost);
 postRouter
   .route("/:id")
   .patch(protect, updatePost)
   .delete(protect, removePost)
-  .get(protect, getPostbyId);
-postRouter.route("/user").get(protect, getPostsByUser);
+  .get(protect, getPostById);
+postRouter.route("/user").get(protect, getUserPosts);
+postRouter.route("/deleteposts/:id").delete(protect, deleteManyPost);
 
 module.exports = postRouter;

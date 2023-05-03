@@ -1,71 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { updatePost } from "../features/post/postSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function EditPost() {
-  const [message, setMessage] = useState();
-  const [selectedInterest, setSelectedInterest] = useState("");
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const userInterests = useSelector((state) => state.auth?.user?.interests);
-  const { posts } = useSelector((state) => state.posts);
+  const { _id, interest, message } = useSelector((state) => state.posts.posts);
 
-  // posts.map((post) => {});
+  const [postMessage, setPostMessage] = useState("");
 
-  const handleClick = (id) => {
-    if (message === "") {
-      toast.error("Please enter post message");
-    } else {
-      dispatch(updatePost(id));
-      toast.success("post updated");
-    }
+  useEffect(() => {
+    setPostMessage(message);
+  }, [message]);
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(updatePost({ _id, message: postMessage }));
+  //   toast.success("post updated");
+  //   navigate("/");
+  // };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updatePost({ _id, message: postMessage }))
+      .unwrap()
+      .then(() => {
+        toast.success("post updated");
+        navigate("/"); // Navigate to the main timeline
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>
       <section className="post-form">
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="interest">Interest:</label>
-            <select
-              id="interest"
-              value={selectedInterest}
-              onChange={(e) => setSelectedInterest(e.target.value)}
-            >
-              <option value="">Select an interest</option>
-              {userInterests &&
-                userInterests.map((interest, index) => (
-                  <option key={index} value={interest.name}>
-                    {interest.name}
-                  </option>
-                ))}
-            </select>
+            <input type="text" defaultValue={interest} />
             <label htmlFor="text">Message:</label>
             <textarea
               id="text"
               name="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              value={postMessage}
+              onChange={(e) => setPostMessage(e.target.value)}
             ></textarea>
           </div>
           <div className="form-group edit-post-btn">
             <Link to="/">
               <button className="btn">back</button>
             </Link>
-            <button
-              className={`add-btn btn  ${
-                selectedInterest === "" ? "disabled" : ""
-              }`}
-              type="submit"
-              disabled={selectedInterest === ""}
-            >
+            <button className="add-btn btn" type="submit">
               save
             </button>
           </div>
         </form>
-        <section className="add-post-divider"></section>
       </section>
     </>
   );
