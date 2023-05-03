@@ -77,6 +77,20 @@ export const updateUser = async (userData) => {
   }
 };
 
+//delete user by id
+export const deleteUser = async (userId) => {
+  const response = await axios.delete(`${API_URL}/${userId}`, {
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
+
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+
+  return response.data;
+};
+
 //get user by id
 export const getUserById = async (userId) => {
   const response = await axios.get(`${API_URL}/${userId}`, {
@@ -84,7 +98,6 @@ export const getUserById = async (userId) => {
       Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
     },
   });
-  console.log("response", response.data);
 
   return response.data;
 };
@@ -93,6 +106,7 @@ export const getUserById = async (userId) => {
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("postUser");
 };
 
 const authService = {
@@ -101,6 +115,7 @@ const authService = {
   logout,
   updateUser,
   getUserById,
+  deleteUser,
 };
 
 export default authService;

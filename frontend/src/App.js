@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Modal from "react-modal";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -9,6 +10,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import EditPost from "./pages/EditPost";
+
+Modal.setAppElement("#root");
 
 function App() {
   return (
@@ -22,6 +26,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/editpost/:id" element={<EditPost />} />
+            <Route path="/viewuser/:id" element={<ViewUserProfile />} />
           </Routes>
         </div>
       </Router>

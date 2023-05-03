@@ -13,7 +13,7 @@ const createPost = async (postData, token) => {
   return response.data;
 };
 
-const getPosts = async (token) => {
+const getAllPosts = async (token) => {
   const config = {
     headers: {
       authorization: `Bearer ${token}`,
@@ -24,19 +24,36 @@ const getPosts = async (token) => {
   return response.data;
 };
 
-const getAllPosts = async () => {
-  const response = await axios.get(API_URL + "all");
-
-  return response.data;
-};
-
-const updatePost = async (postId, postData, token) => {
+const getUserPosts = async (token) => {
   const config = {
     headers: {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(API_URL + postId, postData, config);
+  const response = await axios.get(API_URL + "user", config);
+
+  return response.data;
+};
+
+const getPostById = async (postId, token) => {
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.get(API_URL + postId, config);
+
+  return response.data;
+};
+
+const updatePost = async (postData, token) => {
+  const { _id } = postData;
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.patch(API_URL + _id, postData, config);
   return response.data;
 };
 
@@ -52,10 +69,11 @@ const deletePost = async (postId, token) => {
 
 const postService = {
   createPost,
-  getPosts,
+  getAllPosts,
+  getUserPosts,
+  getPostById,
   updatePost,
   deletePost,
-  getAllPosts,
 };
 
 export default postService;

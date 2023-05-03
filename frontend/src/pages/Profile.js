@@ -1,24 +1,39 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { deleteUser } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
+import Modal from "react-modal";
 
 function Profile() {
-  const { name, email, username, dob, about, location, interests, createdAt } =
-    useSelector((state) => state?.auth?.user);
-  const [userInLocalStorage, setUserInLocalStorage] = useState(
-    Boolean(localStorage.getItem("user"))
-  );
+  const {
+    _id,
+    name,
+    email,
+    username,
+    dob,
+    about,
+    location,
+    interests,
+    createdAt,
+  } = useSelector((state) => state?.auth?.user);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("userInLocalStorage", userInLocalStorage);
+  const [showModal, setShowModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
-  useEffect(() => {
-    if (!userInLocalStorage) {
-      navigate("/login");
-    }
-  }, [userInLocalStorage, navigate]);
+  const openModal = (id) => {
+    setShowModal(true);
+    setUserToDelete(id);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
@@ -26,6 +41,19 @@ function Profile() {
 
   const formattedMemberSince = new Date(createdAt).toLocaleDateString();
   const formattedDob = new Date(dob).toLocaleDateString();
+
+  const handleDelete = async () => {
+    if (userToDelete) {
+      try {
+        await dispatch(deleteUser(userToDelete)).unwrap();
+        toast.success("user deleted");
+        closeModal();
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -64,12 +92,26 @@ function Profile() {
             </div>
           </div>
 
-          <Link to="/editprofile">
-            <button className="btn">
-              <FontAwesomeIcon icon={faEdit} />
-              edit
+          <div className="profile-btn">
+            <Link to="/editprofile">
+              <button className="btn">
+                <FontAwesomeIcon icon={faEdit} />
+                edit
+              </button>
+            </Link>
+            <button className="btn" onClick={() => openModal(_id)}>
+              <FontAwesomeIcon icon={faRemove} />
+              delete
             </button>
-          </Link>
+          </div>
+          <Modal isOpen={showModal} onRequestClose={closeModal}>
+            <button onClick={closeModal}>X</button>
+            <h2>Confirm delete</h2>
+            <p>Are you sure you want to delete profile?</p>
+            <button onClick={closeModal}>cancel</button>
+
+            <button onClick={handleDelete}>delete</button>
+          </Modal>
         </>
       )}
     </>

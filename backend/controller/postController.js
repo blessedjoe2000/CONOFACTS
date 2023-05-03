@@ -1,21 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../models/postModel");
 
-//@desc get post
-//access Private
-const getPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find({ user: req.user.id });
-  res.status(200).json(posts);
-});
-
-const getAllPost = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
-  res.status(200).json(posts);
-});
-
 //@desc set post
 //access Private
-const setPost = asyncHandler(async (req, res) => {
+const createPost = asyncHandler(async (req, res) => {
   const { _id, interest, message } = req.body;
 
   if (!interest) {
@@ -34,8 +22,67 @@ const setPost = asyncHandler(async (req, res) => {
   res.status(201).json({ post });
 });
 
+//@desc get post
+//access Private
+const getPostsByUser = asyncHandler(async (req, res) => {
+  const posts = await Post.find({ user: req.user.id });
+  res.status(200).json(posts);
+});
+
+const getAllPosts = asyncHandler(async (req, res) => {
+  const posts = await Post.find();
+
+  res.status(200).json(posts);
+});
+
+const getPostbyId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  res.status(200).json(post);
+});
+
 //@desc update post with Id
 //access Private
+const getPostById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  res.status(200).json(post);
+});
+
 const updatePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -60,35 +107,6 @@ const updatePost = asyncHandler(async (req, res) => {
     new: true,
   });
   res.status(200).json(updatedPost);
-});
-
-const updateInterest = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const post = await Post.findById(id);
-
-  if (!post) {
-    res.status(400);
-    throw new Error("Post not found");
-  }
-
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-
-  if (post.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
-  }
-
-  const { interests } = req.body;
-
-  post.interest = interests[0];
-
-  await post.save();
-
-  res.json(post);
 });
 
 const removePost = asyncHandler(async (req, res) => {
@@ -117,11 +135,38 @@ const removePost = asyncHandler(async (req, res) => {
   return await Post.findByIdAndDelete(post.id);
 });
 
+const deleteManyPost = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const posts = await Post.find({ id });
+
+  console.log("posts", posts);
+  // if (!posts) {
+  //   res.status(400);
+  //   throw new Error("posts not found");
+  // }
+
+  //check if user exist
+  // if (!req.user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
+
+  //check if user id on post matches user id
+  // if (posts[0].user.toString() !== req.user.id) {
+  //   res.status(401);
+  //   throw new Error("User not authorized");
+  // }
+
+  res.status(200).json(`posts deleted`);
+  return await Post.deleteMany({ id });
+});
+
 module.exports = {
-  getPosts,
-  setPost,
+  createPost,
+  getAllPost,
+  getUserPosts,
+  getPostById,
   updatePost,
   removePost,
-  getAllPost,
-  updateInterest,
+  deleteManyPost,
 };
