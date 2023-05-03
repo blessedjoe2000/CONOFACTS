@@ -111,30 +111,19 @@ const removePost = asyncHandler(async (req, res) => {
   return await Post.findByIdAndDelete(post.id);
 });
 
-const deleteManyPost = asyncHandler(async (req, res) => {
+const deleteManyPosts = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const posts = await Post.find({ id });
 
-  console.log("posts", posts);
-  // if (!posts) {
-  //   res.status(400);
-  //   throw new Error("posts not found");
-  // }
+  // Check if there are any posts that have the specified user id
+  const posts = await Post.find({ user: id });
 
-  //check if user exist
-  // if (!req.user) {
-  //   res.status(401);
-  //   throw new Error("User not found");
-  // }
+  if (posts.length === 0) {
+    return res.status(404).json("No posts found for this user");
+  }
 
-  //check if user id on post matches user id
-  // if (posts[0].user.toString() !== req.user.id) {
-  //   res.status(401);
-  //   throw new Error("User not authorized");
-  // }
-
-  res.status(200).json(`posts deleted`);
-  return await Post.deleteMany({ id });
+  // Delete all posts that have the specified user id
+  res.status(200).json(`posts for user ${id} deleted`);
+  return await Post.deleteMany({ user: id });
 });
 
 module.exports = {
@@ -144,5 +133,5 @@ module.exports = {
   getPostById,
   updatePost,
   removePost,
-  deleteManyPost,
+  deleteManyPosts,
 };

@@ -6,7 +6,7 @@ const {
   removePost,
   getAllPost,
   getPostById,
-  deleteManyPost,
+  deleteManyPosts,
 } = require("../controller/postController");
 const protect = require("../middleware/authMiddleware");
 
@@ -19,6 +19,6 @@ postRouter
   .delete(protect, removePost)
   .get(protect, getPostById);
 postRouter.route("/user").get(protect, getUserPosts);
-postRouter.route("/deleteposts/:id").delete(protect, deleteManyPost);
+postRouter.route("/deleteposts/:id").delete(protect, deleteManyPosts);
 
 module.exports = postRouter;

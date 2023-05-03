@@ -59,10 +59,11 @@ function Timeline() {
     }
   }, [posts]);
 
-  console.log("userpost", userPosts);
 
-  const handleClick = (id) => {
-    dispatch(getUser(id));
+  const handleUsername = (id) => {
+    dispatch(getPostUser(id));
+    navigate("/postuser");
+
   };
 
   // const handleDelete = (id) => {
