@@ -54,7 +54,7 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/profile">
+              <Link to={`/profile`}>
                 <div className="nav-list">
                   <FontAwesomeIcon icon={faUser} />
                   Profile

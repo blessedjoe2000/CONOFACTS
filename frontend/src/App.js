@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
 import ViewUserProfile from "./pages/ViewUserProfile";
+
 Modal.setAppElement("#root");
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<EditProfile />} />
             <Route path="/editpost/:id" element={<EditPost />} />
-            <Route path="/postuser/:id" element={<ViewUserProfile />} />
+            <Route path="/viewuser/:id" element={<ViewUserProfile />} />
           </Routes>
         </div>
       </Router>

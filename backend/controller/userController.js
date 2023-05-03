@@ -110,7 +110,13 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //if email exist compare login password with registration password
   //then return the user information
-  if (userByEmail && (await bcrypt.compare(password, userByEmail.password))) {
+  if (!userByEmail) {
+    res.status(400);
+    throw new Error("email is not registered");
+  } else if (
+    userByEmail &&
+    (await bcrypt.compare(password, userByEmail.password))
+  ) {
     res.status(200).json({
       _id: userByEmail.id,
       name: userByEmail.name,
@@ -203,7 +209,6 @@ const getPostUserById = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  // const { interests } = req.body;
 
   const user = await User.findById(id);
 
@@ -238,7 +243,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User not found");
   }
-
   await User.findByIdAndDelete(user.id);
   return res.status(200).json(`Deleted user with id ${id}`);
 });
@@ -246,7 +250,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 //Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "10d",
   });
 };
 

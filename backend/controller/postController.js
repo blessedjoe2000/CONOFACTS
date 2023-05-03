@@ -111,6 +111,32 @@ const removePost = asyncHandler(async (req, res) => {
   return await Post.findByIdAndDelete(post.id);
 });
 
+const deleteManyPost = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const posts = await Post.find({ id });
+
+  console.log("posts", posts);
+  // if (!posts) {
+  //   res.status(400);
+  //   throw new Error("posts not found");
+  // }
+
+  //check if user exist
+  // if (!req.user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
+
+  //check if user id on post matches user id
+  // if (posts[0].user.toString() !== req.user.id) {
+  //   res.status(401);
+  //   throw new Error("User not authorized");
+  // }
+
+  res.status(200).json(`posts deleted`);
+  return await Post.deleteMany({ id });
+});
+
 module.exports = {
   createPost,
   getAllPost,
@@ -118,4 +144,5 @@ module.exports = {
   getPostById,
   updatePost,
   removePost,
+  deleteManyPost,
 };

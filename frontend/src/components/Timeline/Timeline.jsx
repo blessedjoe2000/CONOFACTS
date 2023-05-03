@@ -12,7 +12,7 @@ function Timeline() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, posts } = useSelector((state) => state?.posts);
+  const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
 
@@ -109,7 +109,7 @@ function Timeline() {
     dispatch(getPostById(id));
   };
 
-  if (isLoading) {
+  if (isPending) {
     <Spinner />;
   }
 
@@ -117,7 +117,6 @@ function Timeline() {
     <>
       <h1>Timeline</h1>
       <div className="timeline-container">
-        {console.log("post on jsx", userPosts)}
         {userPosts &&
           userPosts.map((post) => (
             <div key={post._id} className="timeline">
@@ -130,7 +129,7 @@ function Timeline() {
               <p>
                 User:{" "}
                 <Link
-                  to={`/postuser/${post.user}`}
+                  to={`/viewuser/${post.user}`}
                   className="timeline-username"
                   onClick={() => handleUsername(post.user)}
                 >
@@ -157,10 +156,10 @@ function Timeline() {
           ))}
       </div>
       <Modal isOpen={showModal} onRequestClose={closeModal}>
+        <button onClick={closeModal}>X</button>
         <h2>Confirm delete</h2>
         <p>Are you sure you </p>
         <button onClick={closeModal}>cancel</button>
-        {/* <button onClick={() => handleDelete(postToDelete)}>delete</button> */}
         <button onClick={handleDelete}>delete</button>
       </Modal>
     </>

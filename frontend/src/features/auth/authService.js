@@ -79,13 +79,12 @@ export const updateUser = async (userData) => {
 
 //delete user by id
 export const deleteUser = async (userId) => {
-  const { _id } = userId;
-  const response = await axios.delete(`${API_URL}/${_id}`, {
+  const response = await axios.delete(`${API_URL}/${userId}`, {
     headers: {
       Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
     },
   });
-  console.log("response", response);
+
   localStorage.removeItem("user");
   localStorage.removeItem("token");
 

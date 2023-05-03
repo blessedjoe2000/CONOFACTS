@@ -204,6 +204,7 @@ export const postSlice = createSlice({
         state.posts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
+        state.message = "post deleted";
       })
       .addCase(deletePost.rejected, (state, action) => {
         state.isError = true;

@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { deleteUser } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
+import Modal from "react-modal";
+
 function Profile() {
   const {
     _id,
@@ -20,6 +23,18 @@ function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [showModal, setShowModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
+  const openModal = (id) => {
+    setShowModal(true);
+    setUserToDelete(id);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
   ));
@@ -27,10 +42,17 @@ function Profile() {
   const formattedMemberSince = new Date(createdAt).toLocaleDateString();
   const formattedDob = new Date(dob).toLocaleDateString();
 
-  const handleDelete = (_id) => {
-    dispatch(deleteUser(_id));
-    toast.success("user delete successfully");
-    navigate("/login");
+  const handleDelete = async () => {
+    if (userToDelete) {
+      try {
+        await dispatch(deleteUser(userToDelete)).unwrap();
+        toast.success("user deleted");
+        closeModal();
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -77,11 +99,19 @@ function Profile() {
                 edit
               </button>
             </Link>
-            <button className="btn" onClick={() => handleDelete(_id)}>
+            <button className="btn" onClick={() => openModal(_id)}>
               <FontAwesomeIcon icon={faRemove} />
               delete
             </button>
           </div>
+          <Modal isOpen={showModal} onRequestClose={closeModal}>
+            <button onClick={closeModal}>X</button>
+            <h2>Confirm delete</h2>
+            <p>Are you sure you want to delete profile?</p>
+            <button onClick={closeModal}>cancel</button>
+
+            <button onClick={handleDelete}>delete</button>
+          </Modal>
         </>
       )}
     </>

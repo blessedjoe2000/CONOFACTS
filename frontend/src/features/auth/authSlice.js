@@ -182,9 +182,7 @@ export const authSlice = createSlice({
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.isPending = false;
         state.isSuccess = true;
-        state.user = state.auth.user.filter(
-          (user) => user._id !== action.payload._id
-        );
+        state.user = action.payload;
         state.message = "user deleted successfully";
       })
       .addCase(deleteUser.rejected, (state, action) => {
