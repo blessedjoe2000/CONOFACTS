@@ -24,16 +24,40 @@ const createPost = asyncHandler(async (req, res) => {
 
 //@desc get post
 //access Private
-
-const getAllPost = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
-  res.status(200).json(posts);
-});
-
-const getUserPosts = asyncHandler(async (req, res) => {
+const getPostsByUser = asyncHandler(async (req, res) => {
   const posts = await Post.find({ user: req.user.id });
   res.status(200).json(posts);
 });
+
+const getAllPosts = asyncHandler(async (req, res) => {
+  const posts = await Post.find();
+
+  res.status(200).json(posts);
+});
+
+const getPostbyId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  res.status(200).json(post);
+});
+
 //@desc update post with Id
 //access Private
 const getPostById = asyncHandler(async (req, res) => {

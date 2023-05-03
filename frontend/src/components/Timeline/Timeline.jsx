@@ -10,11 +10,11 @@ import { useEffect, useState } from "react";
 
 function Timeline() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
+  console.log("user", user);
 
   // const userPosts = posts?.filter((post) =>
   //   userInterest?.includes(post.interest)
@@ -61,9 +61,8 @@ function Timeline() {
 
   console.log("userpost", userPosts);
 
-  const handleUsername = (id) => {
-    dispatch(getPostUser(id));
-    navigate("/postuser");
+  const handleClick = (id) => {
+    dispatch(getUser(id));
   };
 
   // const handleDelete = (id) => {
@@ -131,7 +130,7 @@ function Timeline() {
                 <Link
                   to={`/viewuser/${post.user}`}
                   className="timeline-username"
-                  onClick={() => handleUsername(post.user)}
+                  onClick={() => handleClick(post.user)}
                 >
                   {post.username}
                 </Link>
