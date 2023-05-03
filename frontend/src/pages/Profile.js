@@ -4,10 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { deleteUser } from "../features/auth/authSlice";
+import { deleteUserPosts } from "../features/post/postSlice";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
 
 function Profile() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state?.auth);
+
   const {
     _id,
     name,
@@ -18,10 +24,7 @@ function Profile() {
     location,
     interests,
     createdAt,
-  } = useSelector((state) => state?.auth?.user);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  } = user;
 
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
@@ -45,8 +48,9 @@ function Profile() {
   const handleDelete = async () => {
     if (userToDelete) {
       try {
+        await dispatch(deleteUserPosts(userToDelete)).unwrap();
         await dispatch(deleteUser(userToDelete)).unwrap();
-        toast.success("user deleted");
+        toast.success("user and posts deleted successfully");
         closeModal();
         navigate("/login");
       } catch (error) {

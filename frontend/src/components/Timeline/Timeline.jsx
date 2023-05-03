@@ -59,8 +59,6 @@ function Timeline() {
     }
   }, [posts]);
 
-  console.log("userpost", userPosts);
-
   const handleUsername = (id) => {
     dispatch(getPostUser(id));
     navigate("/postuser");
