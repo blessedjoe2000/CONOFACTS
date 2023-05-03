@@ -27,6 +27,7 @@ const createPost = asyncHandler(async (req, res) => {
 
 const getAllPost = asyncHandler(async (req, res) => {
   const posts = await Post.find();
+
   res.status(200).json(posts);
 });
 
@@ -34,8 +35,7 @@ const getUserPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({ user: req.user.id });
   res.status(200).json(posts);
 });
-//@desc update post with Id
-//access Private
+
 const getPostById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
