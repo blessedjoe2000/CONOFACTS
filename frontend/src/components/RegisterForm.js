@@ -5,6 +5,7 @@ import { faAddressBook } from "@fortawesome/free-solid-svg-icons";
 import { register } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import "./form.css";
 
 function RegisterForm() {
   const [selectInterest, setSelectInterest] = useState([]);
@@ -91,7 +92,7 @@ function RegisterForm() {
 
   return (
     <>
-      <section className="heading">
+      <section className="form-heading">
         <h1 className="page-heading-icon ">
           <FontAwesomeIcon icon={faAddressBook} />
           Register
@@ -222,7 +223,7 @@ function RegisterForm() {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="form-group ">
             <button type="submit" className="btn btn-block">
               Submit
             </button>
@@ -230,7 +231,10 @@ function RegisterForm() {
         </form>
         <p>
           Already created an account?
-          <Link to="/login"> click here to login</Link>
+          <Link className="link-to" to="/login">
+            {" "}
+            click here to login
+          </Link>
         </p>
       </section>
     </>

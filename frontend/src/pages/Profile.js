@@ -63,36 +63,49 @@ function Profile() {
     <>
       {name && (
         <>
-          <h2>Profile Information:</h2>
+          <h2 className="profile-heading">Profile Information:</h2>
           <div className="profile-container">
-            <div>Member since {formattedMemberSince}</div>
-            <img
-              src="https://www.w3schools.com/howto/img_avatar.png"
-              alt="avatar"
-            />
+            <div>
+              Member since:{" "}
+              <div className="profile-details-value">
+                {formattedMemberSince}
+              </div>{" "}
+            </div>
+            <div>
+              <img
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
+              />
+            </div>
           </div>
-          <div className="proile-info">
-            <div className="details">
-              Name: <span className="details-value">{name}</span>
+          <div className="profile-info">
+            <div className="profile-details-containter">
+              <div className="profile-details">Name:</div>
+              <div className="profile-details-value">{name}</div>
             </div>
-            <div className="details">
-              Email: <span className="details">{email}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">Email:</div>
+              <div className="profile-details-value">{email}</div>
             </div>
-            <div className="details">
-              Username: <span className="details-value">{username}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">Username:</div>
+              <div className="profile-details-value">{username}</div>
             </div>
-            <div className="details">
-              DOB:
-              <span className="details-value">{formattedDob}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">DOB:</div>
+              <div className="profile-details-value">{formattedDob}</div>
             </div>
-            <div className="details">
-              About me: <span className="details-value">{about}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">About me:</div>
+              <div className="profile-details-value">{about}</div>
             </div>
-            <div className="details">
-              Location: <span className="details-value">{location}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">Location:</div>
+              <div className="profile-details-value">{location}</div>
             </div>
-            <div className="details">
-              Interests: <span className="details-value">{userInterests}</span>
+            <div className="profile-details-containter">
+              <div className="profile-details">Interests:</div>
+              <div className="profile-details-value">{userInterests}</div>
             </div>
           </div>
 
@@ -103,18 +116,32 @@ function Profile() {
                 edit
               </button>
             </Link>
-            <button className="btn" onClick={() => openModal(_id)}>
+            <button className="btn delete" onClick={() => openModal(_id)}>
               <FontAwesomeIcon icon={faRemove} />
               delete
             </button>
           </div>
-          <Modal isOpen={showModal} onRequestClose={closeModal}>
-            <button onClick={closeModal}>X</button>
-            <h2>Confirm delete</h2>
-            <p>Are you sure you want to delete profile?</p>
-            <button onClick={closeModal}>cancel</button>
+          <Modal
+            className="modal-detele"
+            isOpen={showModal}
+            onRequestClose={closeModal}
+          >
+            <button className="close" onClick={closeModal}>
+              X
+            </button>
+            <h2 className="modal-heading">Confirm delete</h2>
+            <p className="modal-message-info">
+              Are you sure you want to delete profile?
+            </p>
+            <div className="modal-btn-container">
+              <button className="btn delete-close" onClick={closeModal}>
+                cancel
+              </button>
 
-            <button onClick={handleDelete}>delete</button>
+              <button className="btn delete" onClick={handleDelete}>
+                delete
+              </button>
+            </div>
           </Modal>
         </>
       )}

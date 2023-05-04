@@ -38,7 +38,11 @@ function PostForm() {
             <option value="">Select an interest</option>
             {userInterests &&
               userInterests.map((interest, index) => (
-                <option key={index} value={interest.name}>
+                <option
+                  className="select-interest"
+                  key={index}
+                  value={interest.name}
+                >
                   {interest.name}
                 </option>
               ))}

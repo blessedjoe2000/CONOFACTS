@@ -3,8 +3,14 @@
   margin: 0 auto;
 }
 
+label {
+  color: #48cae4;
+  font-size: 1rem;
+}
+
 .add-btn {
-  background: rgb(24, 49, 83);
+  background: #003566;
+  font-size: 1rem;
 }
 
 .add-btn.disabled {
@@ -12,8 +18,14 @@
   border: 1px solid rgb(222, 218, 218);
   cursor: default;
 }
+.add-btn.disabled:hover {
+  background-color: rgb(222, 218, 218);
+  border: 1px solid rgb(222, 218, 218);
+  cursor: default;
+  color: #fff;
+}
 .add-post-divider {
   padding-bottom: 3rem;
-  border-bottom: 2px solid rgb(24, 49, 83);
+  border-bottom: 2px solid #003566;
   width: 100%;
 }

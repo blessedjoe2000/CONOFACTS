@@ -1,0 +1,48 @@
+.form-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #48cae4;
+}
+
+.form-heading-icon {
+  margin-bottom: 3rem;
+}
+
+.form,
+.content {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+
+.form-group {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.form-group label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
+}
+
+.link-to {
+  color: #48cae4;
+}
+
+.link-to:hover {
+  color: #003566;
+}

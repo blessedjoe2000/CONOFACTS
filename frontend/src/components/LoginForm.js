@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import "./form.css";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -38,12 +39,11 @@ function LoginForm() {
 
   return (
     <>
-      <section className="heading">
-        <h1 className="page-heading-icon">
-          <FontAwesomeIcon icon={faSignIn} />
-          Login
+      <section className="form-heading">
+        <h1 className="form-heading-icon">
+          <FontAwesomeIcon icon={faSignIn} /> Login
         </h1>
-        <p>Please login your account</p>
+        <p className="form-subheading">Please login your account</p>
       </section>
 
       <section className="form">
@@ -82,7 +82,10 @@ function LoginForm() {
         </form>
         <p>
           Don't have an account?
-          <Link to="/register"> click here to register</Link>
+          <Link className="link-to" to="/register">
+            {" "}
+            click here to register
+          </Link>
         </p>
       </section>
     </>

@@ -1,10 +1,14 @@
-.page-heading-icon {
-  color: rgb(99, 230, 190);
-}
-
 img {
   width: 200px;
   height: 200px;
+}
+
+.profile-heading {
+  color: #48cae4;
+}
+
+.profile-info {
+  margin: 5rem 10rem;
 }
 
 .profile-container {
@@ -14,8 +18,19 @@ img {
   text-align: start;
 }
 
-.details {
-  padding: 0.5rem 0;
+.profile-details-containter {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.profile-details {
+  color: #003566;
+}
+
+.profile-details-value {
+  color: #48cae4;
 }
 
 .edit-btns {
@@ -24,8 +39,18 @@ img {
   margin: 2rem 0;
 }
 
+.edit-post-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
 .profile-btn {
   display: flex;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin: 2rem 5rem;
+}
+
+.heading {
+  color: #48cae4;
 }

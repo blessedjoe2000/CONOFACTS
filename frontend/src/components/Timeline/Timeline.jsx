@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import "./timeline.css";
@@ -6,7 +7,8 @@ import { deletePost, getPostById } from "../../features/post/postSlice";
 import { getPostUser } from "../../features/postUser/postUserSlice";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner";
-import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
   const dispatch = useDispatch();
@@ -16,22 +18,29 @@ function Timeline() {
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
 
-  // const userPosts = posts?.filter((post) =>
-  //   userInterest?.includes(post.interest)
-  // );
-
   const [userPosts, setUserPosts] = useState([]);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showReadMoreModal, setShowReadMoreModal] = useState(false);
+  const [readMorePost, setReadMorePost] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postToDelete, setPostToDelete] = useState(null);
 
-  const openModal = (id) => {
-    setShowModal(true);
+  const openReadMoreModal = (post) => {
+    setShowReadMoreModal(true);
+    setReadMorePost(post);
+  };
+
+  const closeReadMoreModal = () => {
+    setShowReadMoreModal(false);
+  };
+
+  const openDeleteModal = (id) => {
+    setShowDeleteModal(true);
     setPostToDelete(id);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
   };
 
   useEffect(() => {
@@ -57,7 +66,7 @@ function Timeline() {
         setUserPosts((prevPosts) =>
           prevPosts.filter((post) => post._id !== postToDelete)
         );
-        closeModal();
+        closeDeleteModal();
       } catch (error) {
         console.log(error);
       }
@@ -74,19 +83,51 @@ function Timeline() {
 
   return (
     <>
-      <h1>Timeline</h1>
-      <div className="timeline-container">
+      <h1 className="timeline-heading">Timeline</h1>
+      <div className="timeline-card">
         {userPosts &&
           userPosts.map((post) => (
             <div key={post._id} className="timeline">
-              <h2>{post.interest}</h2>
+              <h2 className="card-heading">{post.interest}</h2>
 
-              <p className="timeline-message">{post.message}</p>
-              <p className="timeline-date">{`Date: ${new Date(
-                post.createdAt
-              ).toLocaleDateString()}`}</p>
-              <p>
-                User:{" "}
+              {post.message.length > 250 ? (
+                <>
+                  <p className="timeline-message">
+                    {post.message.substring(0, 250)}...
+                    <button
+                      className="readmore"
+                      onClick={() => openReadMoreModal(post.message)}
+                    >
+                      read more...
+                    </button>
+                  </p>
+                  <Modal
+                    className="modal"
+                    isOpen={showReadMoreModal}
+                    onRequestClose={closeReadMoreModal}
+                  >
+                    <button className="close" onClick={closeReadMoreModal}>
+                      X
+                    </button>
+                    <p className="modal-message">{readMorePost}</p>
+                    <button
+                      className="btn btn-close"
+                      onClick={closeReadMoreModal}
+                    >
+                      close
+                    </button>
+                  </Modal>
+                </>
+              ) : (
+                <p className="timeline-message">{post.message}</p>
+              )}
+
+              <p className="timeline-icon-details">
+                <FontAwesomeIcon icon={faCalendar} />{" "}
+                {`Date: ${new Date(post.createdAt).toLocaleDateString()}`}
+              </p>
+              <p className="timeline-icon-details">
+                <FontAwesomeIcon icon={faUser} /> User:{" "}
                 <Link
                   to={`/viewuser/${post.user}`}
                   className="timeline-username"
@@ -104,8 +145,8 @@ function Timeline() {
                     <button className="btn">edit</button>
                   </Link>
                   <button
-                    className="btn delete"
-                    onClick={() => openModal(post._id)}
+                    className="delete btn"
+                    onClick={() => openDeleteModal(post._id)}
                   >
                     delete
                   </button>
@@ -114,12 +155,26 @@ function Timeline() {
             </div>
           ))}
       </div>
-      <Modal isOpen={showModal} onRequestClose={closeModal}>
-        <button onClick={closeModal}>X</button>
-        <h2>Confirm delete</h2>
-        <p>Are you sure you </p>
-        <button onClick={closeModal}>cancel</button>
-        <button onClick={handleDelete}>delete</button>
+      <Modal
+        className="modal-detele"
+        isOpen={showDeleteModal}
+        onRequestClose={closeDeleteModal}
+      >
+        <button className="close" onClick={closeDeleteModal}>
+          X
+        </button>
+        <h2 className="modal-heading">Confirm delete</h2>
+        <p className="modal-message-info">
+          Are you sure you delete this post?{" "}
+        </p>
+        <div className="modal-btn-container">
+          <button className="btn delete-close" onClick={closeDeleteModal}>
+            cancel
+          </button>
+          <button className="btn delete" onClick={handleDelete}>
+            delete
+          </button>
+        </div>
       </Modal>
     </>
   );
