@@ -12,11 +12,11 @@ import { faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
+  console.log("user", user);
 
   const [userPosts, setUserPosts] = useState([]);
 
@@ -52,9 +52,11 @@ function Timeline() {
     }
   }, [posts]);
 
+
   const handleUsername = (id) => {
     dispatch(getPostUser(id));
     navigate("/postuser");
+
   };
 
   const handleDelete = async () => {
@@ -131,7 +133,7 @@ function Timeline() {
                 <Link
                   to={`/viewuser/${post.user}`}
                   className="timeline-username"
-                  onClick={() => handleUsername(post.user)}
+                  onClick={() => handleClick(post.user)}
                 >
                   {post.username}
                 </Link>
