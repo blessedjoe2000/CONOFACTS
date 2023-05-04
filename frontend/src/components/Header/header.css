@@ -5,7 +5,7 @@
   padding: 20px 2rem;
   border-bottom: 1px solid #e6e6e6;
   margin-bottom: 60px;
-  background-color: rgb(24, 49, 83);
+  background-color: #003566;
 }
 
 .header ul {
@@ -23,7 +23,7 @@
   align-items: center;
 }
 .header a {
-  color: rgb(99, 230, 190);
+  color: #48cae4;
 }
 
 .header a :hover {
@@ -43,9 +43,9 @@
 
 .btn-logout {
   padding: 10px 20px;
-  border: 1px solid rgb(99, 230, 190);
+  border: 1px solid #48cae4;
   border-radius: 5px;
-  background: rgb(99, 230, 190);
+  background: #48cae4;
   color: #fff;
   font-size: 16px;
   cursor: pointer;

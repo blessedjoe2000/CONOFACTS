@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
+import ViewUserProfile from "./pages/ViewUserProfile";
+import Footer from "./components/Footer/Footer";
 
 Modal.setAppElement("#root");
 
@@ -30,6 +32,7 @@ function App() {
             <Route path="/viewuser/:id" element={<ViewUserProfile />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
       <ToastContainer />
     </>

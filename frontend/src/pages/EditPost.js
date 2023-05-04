@@ -16,13 +16,6 @@ function EditPost() {
     setPostMessage(message);
   }, [message]);
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(updatePost({ _id, message: postMessage }));
-  //   toast.success("post updated");
-  //   navigate("/");
-  // };
-
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(updatePost({ _id, message: postMessage }))
@@ -54,7 +47,7 @@ function EditPost() {
             <Link to="/">
               <button className="btn">back</button>
             </Link>
-            <button className="add-btn btn" type="submit">
+            <button className=" btn" type="submit">
               save
             </button>
           </div>
