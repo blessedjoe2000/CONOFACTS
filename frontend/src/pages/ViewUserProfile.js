@@ -21,55 +21,57 @@ function Profile() {
 
   return (
     <>
-      {name && (
-        <>
-          <h2 className="profile-heading">Profile Information:</h2>
-          <div className="profile-container">
-            <div>
-              Member since:{" "}
-              <div className="profile-details-value">
-                {formattedMemberSince}
-              </div>{" "}
+      <div className="profile-body">
+        {name && (
+          <>
+            <h2 className="profile-heading">Profile Information:</h2>
+            <div className="profile-container">
+              <div>
+                <img
+                  src="https://www.w3schools.com/howto/img_avatar.png"
+                  alt="avatar"
+                />
+              </div>
+              <div>
+                Member since:{" "}
+                <div className="profile-details-value">
+                  {formattedMemberSince}
+                </div>{" "}
+              </div>
             </div>
-            <div>
-              <img
-                src="https://www.w3schools.com/howto/img_avatar.png"
-                alt="avatar"
-              />
+            <div className="profile-info">
+              <div className="profile-details-containter">
+                <div className="profile-details">Name:</div>
+                <div className="profile-details-value">{name}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Email:</div>
+                <div className="profile-details-value">{email}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Username:</div>
+                <div className="profile-details-value">{username}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">DOB:</div>
+                <div className="profile-details-value">{formattedDob}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">About me:</div>
+                <div className="profile-details-value">{about}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Location:</div>
+                <div className="profile-details-value">{location}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Interests:</div>
+                <div className="profile-details-value">{userInterests}</div>
+              </div>
             </div>
-          </div>
-          <div className="profile-info">
-            <div className="profile-details-containter">
-              <div className="profile-details">Name:</div>
-              <div className="profile-details-value">{name}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Email:</div>
-              <div className="profile-details-value">{email}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Username:</div>
-              <div className="profile-details-value">{username}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">DOB:</div>
-              <div className="profile-details-value">{formattedDob}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">About me:</div>
-              <div className="profile-details-value">{about}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Location:</div>
-              <div className="profile-details-value">{location}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Interests:</div>
-              <div className="profile-details-value">{userInterests}</div>
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </>
   );
 }

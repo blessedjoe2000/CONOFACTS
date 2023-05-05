@@ -34,27 +34,27 @@ function Header() {
       <Link to="/">
         <div className="logo">CONOFACTS</div>
       </Link>
-      <ul>
+      <ul className="navbar-list">
         {user ? (
           <>
-            <li>
-              <Link to="/">
+            <li className="nav-item">
+              <Link className="menu-list" to="/">
                 <div className="nav-list">
                   <FontAwesomeIcon icon={faHome} />
                   Home
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to="/">
+            <li className="nav-item">
+              <Link className="menu-list" to="/">
                 <div className="nav-list">
                   <FontAwesomeIcon icon={faMessage} />
                   Message
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to={`/profile`}>
+            <li className="nav-item">
+              <Link className="menu-list" to={`/profile`}>
                 <div className="nav-list">
                   <FontAwesomeIcon icon={faUser} />
                   Profile
@@ -62,7 +62,7 @@ function Header() {
               </Link>
             </li>
 
-            <li>
+            <li className="nav-item">
               <button className="btn-logout" onClick={onLogout}>
                 <FontAwesomeIcon icon={faSignOut} />
                 Logout
@@ -71,20 +71,27 @@ function Header() {
           </>
         ) : (
           <>
-            <li>
-              <Link to="/login">
+            <li className="nav-item">
+              <Link className="menu-list" to="/login">
                 <FontAwesomeIcon icon={faSignIn} />
                 Login
               </Link>
             </li>
-            <li>
-              <Link to="/register">
+            <li className="nav-item">
+              <Link className="menu-list" to="/register">
                 <FontAwesomeIcon icon={faAddressBook} />
                 Register
               </Link>
             </li>
           </>
         )}
+        <div></div>
+        <div className="hamburger">
+          <span className="mobile-menu"></span>
+          <span className="mobile-menu"></span>
+          <span className="mobile-menu"></span>
+          <span className="mobile-menu"></span>
+        </div>
       </ul>
     </header>
   );

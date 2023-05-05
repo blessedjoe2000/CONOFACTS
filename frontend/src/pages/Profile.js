@@ -7,6 +7,7 @@ import { deleteUser } from "../features/auth/authSlice";
 import { deleteUserPosts } from "../features/post/postSlice";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
+import "./pages.css";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -61,90 +62,93 @@ function Profile() {
 
   return (
     <>
-      {name && (
-        <>
-          <h2 className="profile-heading">Profile Information:</h2>
-          <div className="profile-container">
-            <div>
-              Member since:{" "}
-              <div className="profile-details-value">
-                {formattedMemberSince}
-              </div>{" "}
-            </div>
-            <div>
-              <img
-                src="https://www.w3schools.com/howto/img_avatar.png"
-                alt="avatar"
-              />
-            </div>
-          </div>
-          <div className="profile-info">
-            <div className="profile-details-containter">
-              <div className="profile-details">Name:</div>
-              <div className="profile-details-value">{name}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Email:</div>
-              <div className="profile-details-value">{email}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Username:</div>
-              <div className="profile-details-value">{username}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">DOB:</div>
-              <div className="profile-details-value">{formattedDob}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">About me:</div>
-              <div className="profile-details-value">{about}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Location:</div>
-              <div className="profile-details-value">{location}</div>
-            </div>
-            <div className="profile-details-containter">
-              <div className="profile-details">Interests:</div>
-              <div className="profile-details-value">{userInterests}</div>
-            </div>
-          </div>
+      <div className="profile-body">
+        {name && (
+          <>
+            <h2 className="profile-heading">Profile Information:</h2>
 
-          <div className="profile-btn">
-            <Link to="/editprofile">
-              <button className="btn">
-                <FontAwesomeIcon icon={faEdit} />
-                edit
-              </button>
-            </Link>
-            <button className="btn delete" onClick={() => openModal(_id)}>
-              <FontAwesomeIcon icon={faRemove} />
-              delete
-            </button>
-          </div>
-          <Modal
-            className="modal-detele"
-            isOpen={showModal}
-            onRequestClose={closeModal}
-          >
-            <button className="close" onClick={closeModal}>
-              X
-            </button>
-            <h2 className="modal-heading">Confirm delete</h2>
-            <p className="modal-message-info">
-              Are you sure you want to delete profile?
-            </p>
-            <div className="modal-btn-container">
-              <button className="btn delete-close" onClick={closeModal}>
-                cancel
-              </button>
+            <div className="profile-container">
+              <div>
+                <img
+                  src="https://www.w3schools.com/howto/img_avatar.png"
+                  alt="avatar"
+                />
+              </div>
+              <div>
+                Member since:{" "}
+                <div className="profile-details-value">
+                  {formattedMemberSince}
+                </div>{" "}
+              </div>
+            </div>
+            <div className="profile-info">
+              <div className="profile-details-containter">
+                <div className="profile-details">Name:</div>
+                <div className="profile-details-value">{name}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Email:</div>
+                <div className="profile-details-value">{email}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Username:</div>
+                <div className="profile-details-value">{username}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">DOB:</div>
+                <div className="profile-details-value">{formattedDob}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">About me:</div>
+                <div className="profile-details-value">{about}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Location:</div>
+                <div className="profile-details-value">{location}</div>
+              </div>
+              <div className="profile-details-containter">
+                <div className="profile-details">Interests:</div>
+                <div className="profile-details-value">{userInterests}</div>
+              </div>
+            </div>
 
-              <button className="btn delete" onClick={handleDelete}>
+            <div className="profile-btn">
+              <Link to="/editprofile">
+                <button className="btn">
+                  <FontAwesomeIcon icon={faEdit} />
+                  edit
+                </button>
+              </Link>
+              <button className="btn delete" onClick={() => openModal(_id)}>
+                <FontAwesomeIcon icon={faRemove} />
                 delete
               </button>
             </div>
-          </Modal>
-        </>
-      )}
+            <Modal
+              className="modal-detele"
+              isOpen={showModal}
+              onRequestClose={closeModal}
+            >
+              <button className="close" onClick={closeModal}>
+                X
+              </button>
+              <h2 className="modal-heading">Confirm delete</h2>
+              <p className="modal-message-info">
+                Are you sure you want to delete profile?
+              </p>
+              <div className="modal-btn-container">
+                <button className="btn delete-close" onClick={closeModal}>
+                  cancel
+                </button>
+
+                <button className="btn delete" onClick={handleDelete}>
+                  delete
+                </button>
+              </div>
+            </Modal>
+          </>
+        )}
+      </div>
     </>
   );
 }

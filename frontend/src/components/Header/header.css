@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 2rem;
-  border-bottom: 1px solid #e6e6e6;
-  margin-bottom: 60px;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #003566;
+  margin-bottom: 2rem;
   background-color: #003566;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .header ul li {
-  margin-left: 20px;
+  margin-left: 1rem;
 }
 
 .header ul li a {
@@ -31,7 +31,7 @@
 }
 
 .header ul li a svg {
-  margin-right: 5px;
+  margin-right: 0.2rem;
 }
 .nav-list {
   cursor: pointer;
@@ -42,12 +42,12 @@
 }
 
 .btn-logout {
-  padding: 10px 20px;
+  padding: 0.5rem 1rem;
   border: 1px solid #48cae4;
   border-radius: 5px;
   background: #48cae4;
   color: #fff;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   text-align: center;
   appearance: button;
