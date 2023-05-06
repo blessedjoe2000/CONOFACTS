@@ -12,6 +12,7 @@ import { faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
@@ -19,6 +20,8 @@ function Timeline() {
   console.log("user", user);
 
   const [userPosts, setUserPosts] = useState([]);
+
+  console.log("posts", userPosts);
 
   const [showReadMoreModal, setShowReadMoreModal] = useState(false);
   const [readMorePost, setReadMorePost] = useState(null);
