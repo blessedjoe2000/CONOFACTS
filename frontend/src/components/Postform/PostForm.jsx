@@ -27,7 +27,7 @@ function PostForm() {
 
   return (
     <section className="post-form">
-      <form onSubmit={onSubmit}>
+      <form className="post-container" onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="interest">Interest:</label>
           <select

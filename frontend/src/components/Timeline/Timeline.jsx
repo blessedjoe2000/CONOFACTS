@@ -17,6 +17,7 @@ function Timeline() {
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
+  console.log("user", user);
 
   const [userPosts, setUserPosts] = useState([]);
 
@@ -126,16 +127,26 @@ function Timeline() {
                 <FontAwesomeIcon icon={faCalendar} />{" "}
                 {`Date: ${new Date(post.createdAt).toLocaleDateString()}`}
               </p>
-              <p className="timeline-icon-details">
-                <FontAwesomeIcon icon={faUser} /> User:{" "}
-                <Link
-                  to={`/viewuser/${post.user}`}
-                  className="timeline-username"
-                  onClick={() => handleUsername(post.user)}
-                >
-                  {post.username}
-                </Link>
-              </p>
+              {post.username === user.username ? (
+                <p className="timeline-icon-details">
+                  <FontAwesomeIcon icon={faUser} /> User:{" "}
+                  <Link to={`/profile`} className="timeline-username">
+                    {post.username}
+                  </Link>
+                </p>
+              ) : (
+                <p className="timeline-icon-details">
+                  <FontAwesomeIcon icon={faUser} /> User:{" "}
+                  <Link
+                    to={`/viewuser/${post.user}`}
+                    className="timeline-username"
+                    onClick={() => handleUsername(post.user)}
+                  >
+                    {post.username}
+                  </Link>
+                </p>
+              )}
+
               {post.username === user.username && (
                 <div className="timeline-btn">
                   <Link

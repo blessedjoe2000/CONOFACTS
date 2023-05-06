@@ -9,7 +9,12 @@
   margin-bottom: 3rem;
 }
 
-.form,
+.form {
+  padding: 5rem 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 3rem;
+}
 .content {
   width: 100%;
   margin: 0 auto;
@@ -17,7 +22,7 @@
 }
 
 .form-group {
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   margin-bottom: 10px;
 }
@@ -31,12 +36,14 @@
   border-radius: 5px;
   margin-bottom: 10px;
   font-family: inherit;
+  font-size: 1rem;
 }
 
 .form-group label {
   text-align: left;
   display: block;
   margin: 0 0 5px 3px;
+  font-size: 1rem;
 }
 
 .link-to {
@@ -47,14 +54,40 @@
   color: #003566;
 }
 
+.post-container {
+  padding: 5rem 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 5rem;
+}
+
 @media (min-width: 481px) and (max-width: 905px) {
   .form-group {
     width: 70%;
+  }
+
+  .post-container {
+    padding: 3rem 0;
+    margin: 3rem;
   }
 }
 
 @media (max-width: 480px) {
   .form-group {
     width: 90%;
+  }
+
+  .form {
+    padding: 2rem 0;
+    margin: 2rem;
+  }
+
+  .form-group {
+    width: 50%;
+  }
+
+  .post-container {
+    padding: 2rem 0;
+    margin: 2rem;
   }
 }
