@@ -50,7 +50,7 @@ function Timeline() {
       );
       setUserPosts(updatedUserPosts);
     }
-  }, [posts]);
+  }, []);
 
 
   const handleUsername = (id) => {

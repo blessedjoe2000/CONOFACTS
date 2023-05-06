@@ -34,7 +34,7 @@ function Dashboard() {
   }
   return (
     <>
-      <section className="heading">
+      <section className="form-heading">
         <h1> {user && `Welcome ${user.name}`}</h1>
       </section>
       <section className="content">
