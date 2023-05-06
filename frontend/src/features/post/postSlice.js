@@ -4,8 +4,8 @@ import postService from "./postService";
 const initialState = {
   posts: [],
   isPending: false,
-  isSuccess: false,
   isError: false,
+  isSuccess: false,
   message: "",
 };
 
@@ -14,7 +14,8 @@ export const createPost = createAsyncThunk(
   async (postData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.createPost(postData, token);
+      const response = await postService.createPost(postData, token);
+      return response.data;
     } catch (error) {
       const message =
         (error.response &&

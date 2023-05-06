@@ -12,7 +12,6 @@ import { faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
@@ -53,9 +52,11 @@ function Timeline() {
     }
   }, []);
 
+
   const handleUsername = (id) => {
     dispatch(getPostUser(id));
     navigate("/postuser");
+
   };
 
   const handleDelete = async () => {
@@ -127,6 +128,7 @@ function Timeline() {
                 <FontAwesomeIcon icon={faCalendar} />{" "}
                 {`Date: ${new Date(post.createdAt).toLocaleDateString()}`}
               </p>
+
               {post.username === user.username ? (
                 <p className="timeline-icon-details">
                   <FontAwesomeIcon icon={faUser} /> User:{" "}
@@ -146,6 +148,7 @@ function Timeline() {
                   </Link>
                 </p>
               )}
+
 
               {post.username === user.username && (
                 <div className="timeline-btn">
