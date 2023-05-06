@@ -1,6 +1,18 @@
 .profile-body {
   margin: 5rem;
 }
+.profile-cards {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.profile-card-containter {
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
 
 .profile-heading {
   color: #48cae4;
@@ -8,40 +20,42 @@
 
 .profile-container {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 5rem 0;
+  margin: 1rem 0;
 }
 
 img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 .profile-details-containter {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 10px;
   align-items: baseline;
   gap: 2rem;
 }
 
 .profile-details {
+  text-align: left;
   color: #003566;
 }
 
 .profile-details-value {
   color: #48cae4;
+  text-align: left;
 }
 
 .profile-btn {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin: 2rem 0rem;
 }
 
 .edit-btns {
   display: flex;
   justify-content: space-around;
-  margin: 2rem 0;
+  margin-top: 2rem;
 }
 
 .edit-post-btn {
@@ -54,16 +68,28 @@ img {
   color: #48cae4;
 }
 
-@media (min-width: 481px) and (max-width: 905px) {
+.member-since {
+  text-align: left;
+  max-height: 5rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
 @media (max-width: 480px) {
   .profile-body {
-    margin: 5rem 2rem;
+    margin: 3rem 2rem;
+  }
+
+  .profile-cards {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
   .profile-container {
     flex-direction: column;
-    margin: 2rem 0;
   }
 }
