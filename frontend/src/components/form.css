@@ -46,3 +46,15 @@
 .link-to:hover {
   color: #003566;
 }
+
+@media (min-width: 481px) and (max-width: 905px) {
+  .form-group {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-group {
+    width: 90%;
+  }
+}
