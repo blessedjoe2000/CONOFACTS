@@ -68,6 +68,11 @@ h3 {
   border: 1px solid #df2935;
 }
 
+.profile-del {
+  width: 92px;
+  padding: 0.5rem 1.5rem;
+}
+
 .btn svg {
   margin-right: 8px;
 }
