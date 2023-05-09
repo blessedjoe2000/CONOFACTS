@@ -20,6 +20,8 @@ function Timeline() {
 
   const [userPosts, setUserPosts] = useState([]);
 
+  console.log("posts", userPosts);
+
   const [showReadMoreModal, setShowReadMoreModal] = useState(false);
   const [readMorePost, setReadMorePost] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
