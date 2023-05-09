@@ -4,8 +4,8 @@ const initialState = {
   mode: "light",
 };
 
-const appSlice = createSlice({
-  name: "app",
+const modeSlice = createSlice({
+  name: "mode",
   initialState,
   reducers: {
     toggleMode: (state) => {
@@ -14,6 +14,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { toggleMode } = appSlice.actions;
+export const { toggleMode } = modeSlice.actions;
 
-export default appSlice.reducer;
+export default modeSlice.reducer;

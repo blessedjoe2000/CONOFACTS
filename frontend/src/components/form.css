@@ -10,11 +10,16 @@
 }
 
 .form {
-  padding: 5rem 0;
+  padding: 3rem 0;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   margin: 3rem;
 }
+
+#dark-mode .form {
+  background-color: #2b2d42;
+}
+
 .content {
   width: 100%;
   margin: 0 auto;
@@ -58,7 +63,11 @@
   padding: 5rem 0;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  margin: 5rem;
+  margin: 2rem 5rem;
+}
+
+#dark-mode .post-container {
+  background-color: #2b2d42;
 }
 
 @media (min-width: 481px) and (max-width: 905px) {
@@ -68,7 +77,7 @@
 
   .post-container {
     padding: 3rem 0;
-    margin: 3rem;
+    margin: 2rem 3rem;
   }
 }
 
@@ -80,6 +89,6 @@
 
   .post-container {
     padding: 2rem 0;
-    margin: 2rem;
+    margin: 1rem 2rem;
   }
 }

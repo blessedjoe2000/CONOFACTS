@@ -18,6 +18,8 @@ function Timeline() {
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
 
+  const mode = useSelector((state) => state?.mode?.mode);
+
   const [userPosts, setUserPosts] = useState([]);
 
   const [showReadMoreModal, setShowReadMoreModal] = useState(false);
@@ -50,7 +52,7 @@ function Timeline() {
       );
       setUserPosts(updatedUserPosts);
     }
-  }, []);
+  }, [posts]);
 
   const handleUsername = (id) => {
     dispatch(getPostUser(id));
@@ -102,6 +104,7 @@ function Timeline() {
                     </button>
                   </p>
                   <Modal
+                    id={mode === "dark" ? "dark-mode" : ""}
                     className="modal"
                     isOpen={showReadMoreModal}
                     onRequestClose={closeReadMoreModal}
@@ -166,7 +169,8 @@ function Timeline() {
           ))}
       </div>
       <Modal
-        className="modal-detele"
+        id={mode === "dark" ? "dark-mode" : ""}
+        className="modal-delete"
         isOpen={showDeleteModal}
         onRequestClose={closeDeleteModal}
       >

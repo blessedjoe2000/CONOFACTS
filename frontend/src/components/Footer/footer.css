@@ -5,3 +5,7 @@
   color: #fff;
   padding: 1rem;
 }
+
+#dark-mode .footer {
+  background-color: #2b2d42;
+}

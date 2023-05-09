@@ -13,14 +13,18 @@ import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
 import ViewUserProfile from "./pages/ViewUserProfile";
 import Footer from "./components/Footer/Footer";
+import { useSelector } from "react-redux";
 
 Modal.setAppElement("#root");
 
 function App() {
+  const mode = useSelector((state) => state?.mode?.mode);
+
   return (
-    <>
+    <div id={mode === "dark" ? "dark-mode" : ""}>
       <Router>
         <Header />
+
         <div className="container">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -35,7 +39,7 @@ function App() {
         <Footer />
       </Router>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

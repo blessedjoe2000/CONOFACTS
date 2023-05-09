@@ -8,10 +8,14 @@
   margin-top: 2rem;
 }
 
-.profile-card-containter {
+.profile-card-container {
   padding: 1rem;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+}
+
+#dark-mode .profile-card-container {
+  background-color: #2b2d42;
 }
 
 .profile-heading {
@@ -39,6 +43,10 @@ img {
 .profile-details {
   text-align: left;
   color: #003566;
+}
+
+#dark-mode .profile-details {
+  color: #fff;
 }
 
 .profile-details-value {
@@ -74,6 +82,10 @@ img {
   padding: 1rem;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+}
+
+#dark-mode .member-since {
+  background-color: #2b2d42;
 }
 
 @media (max-width: 480px) {

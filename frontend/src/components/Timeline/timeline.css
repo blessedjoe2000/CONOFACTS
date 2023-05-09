@@ -6,7 +6,7 @@
 .timeline-card {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 5rem 0;
+  margin: 2rem 0;
 }
 
 .timeline {
@@ -20,6 +20,11 @@
   height: auto;
   overflow: hidden;
 }
+
+#dark-mode .timeline {
+  background-color: #2b2d42;
+}
+
 .card-heading {
   color: #48cae4;
 }
@@ -34,6 +39,10 @@
 .readmore:hover {
   color: #003566;
   cursor: pointer;
+}
+
+#dark-mode .readmore:hover {
+  color: #fff;
 }
 
 .timeline-icon-details {
@@ -90,11 +99,15 @@
   color: #48cae4;
 }
 
+#dark-mode .modal-message {
+  color: #fff;
+}
+
 .btn-close {
   width: 5rem;
 }
 
-.modal-detele {
+.modal-delete {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -121,14 +134,12 @@
 @media (min-width: 481px) and (max-width: 905px) {
   .timeline-card {
     grid-template-columns: repeat(2, 1fr);
-    margin: 2rem 0;
   }
 }
 
 @media (max-width: 480px) {
   .timeline-card {
     grid-template-columns: repeat(1, 1fr);
-    margin: 2rem 0;
   }
 
   .modal {
