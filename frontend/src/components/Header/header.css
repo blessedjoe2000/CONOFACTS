@@ -50,6 +50,10 @@
   display: flex;
   gap: 0.5rem;
   margin-left: 1rem;
+  position: fixed;
+  right: 0rem;
+  z-index: 9999;
+  top: 4rem;
 }
 
 #dark-mode label {
