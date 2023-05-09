@@ -18,6 +18,7 @@ userRouter
   .get(protect, getUserById)
   .patch(protect, updateUser)
   .delete(protect, deleteUser);
+
 userRouter.get("/postuser/:id", protect, getPostUserById);
 
 module.exports = { userRouter };
