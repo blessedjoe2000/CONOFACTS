@@ -26,7 +26,7 @@ function Profile() {
           <>
             <h2 className="profile-heading">Profile Information:</h2>
             <div className="profile-cards">
-              <div className="profile-card-containter">
+              <div className="profile-card-container">
                 <div className="profile-container">
                   <div>
                     <img
@@ -36,31 +36,31 @@ function Profile() {
                   </div>
                 </div>
                 <div className="profile-info">
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Name:</div>
                     <div className="profile-details-value">{name}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Email:</div>
                     <div className="profile-details-value">{email}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Username:</div>
                     <div className="profile-details-value">{username}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">DOB:</div>
                     <div className="profile-details-value">{formattedDob}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">About me:</div>
                     <div className="profile-details-value">{about}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Location:</div>
                     <div className="profile-details-value">{location}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Interests:</div>
                     <div className="profile-details-value">{userInterests}</div>
                   </div>

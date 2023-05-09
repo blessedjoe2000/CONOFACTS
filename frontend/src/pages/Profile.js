@@ -14,6 +14,7 @@ function Profile() {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state?.auth);
+  const mode = useSelector((state) => state?.mode?.mode);
 
   const {
     _id,
@@ -29,6 +30,7 @@ function Profile() {
 
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [file, setFile] = useState(null);
 
   const openModal = (id) => {
     setShowModal(true);
@@ -42,6 +44,10 @@ function Profile() {
   const userInterests = interests?.map((interest) => (
     <li key={interest._id}>{interest.name}</li>
   ));
+
+  const handleFileSelect = (event) => {
+    setFile(event.target.files[0]);
+  };
 
   const formattedMemberSince = new Date(createdAt).toLocaleDateString();
   const formattedDob = new Date(dob).toLocaleDateString();
@@ -60,6 +66,18 @@ function Profile() {
     }
   };
 
+  const handleUpload = async () => {
+    if (file) {
+      try {
+        // Add code here to upload the file using a backend API
+        toast.success("Profile photo uploaded successfully");
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to upload profile photo");
+      }
+    }
+  };
+
   return (
     <>
       <div className="profile-body">
@@ -67,41 +85,42 @@ function Profile() {
           <>
             <h2 className="profile-heading">Profile Information:</h2>
             <div className="profile-cards">
-              <div className="profile-card-containter">
+              <div className="profile-card-container">
                 <div className="profile-container">
                   <div>
                     <img
                       src="https://www.w3schools.com/howto/img_avatar.png"
                       alt="avatar"
                     />
+                    <input type="file" onChange={handleFileSelect} />
                   </div>
                 </div>
                 <div className="profile-info">
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Name:</div>
                     <div className="profile-details-value">{name}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Email:</div>
                     <div className="profile-details-value">{email}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Username:</div>
                     <div className="profile-details-value">{username}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">DOB:</div>
                     <div className="profile-details-value">{formattedDob}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">About me:</div>
                     <div className="profile-details-value">{about}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Location:</div>
                     <div className="profile-details-value">{location}</div>
                   </div>
-                  <div className="profile-details-containter">
+                  <div className="profile-details-container">
                     <div className="profile-details">Interests:</div>
                     <div className="profile-details-value">{userInterests}</div>
                   </div>
@@ -130,7 +149,8 @@ function Profile() {
               </button>
             </div>
             <Modal
-              className="modal-detele"
+              id={mode === "dark" ? "dark-mode" : ""}
+              className="modal-delete"
               isOpen={showModal}
               onRequestClose={closeModal}
             >

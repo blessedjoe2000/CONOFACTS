@@ -96,6 +96,11 @@ h3 {
   background-color: #1c3144;
 }
 
+#dark-mode {
+  background-color: #03071e;
+  color: #fff;
+}
+
 .loadingSpinnerContainer {
   position: fixed;
   top: 0;
