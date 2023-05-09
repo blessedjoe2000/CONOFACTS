@@ -45,11 +45,6 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exist with this email, try another email");
   }
 
-  // if (userUsernameExit) {
-  //   res.status(400);
-  //   throw new Error("username taken! Please choose another username");
-  // }
-
   //hash password
   //generate salt to encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -105,9 +100,6 @@ const loginUser = asyncHandler(async (req, res) => {
   //check for user with email
   const userByEmail = await User.findOne({ email });
 
-  //check for user with username
-  // const userByUsername = await User.findOne({ username });
-
   //if email exist compare login password with registration password
   //then return the user information
   if (!userByEmail) {
@@ -134,28 +126,6 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error("email or password is incorrect");
   }
 
-  //if username exist compare login password with registration password
-  //then return the user information
-  // if (
-  //   userByUsername &&
-  //   (await bcrypt.compare(password, userByUsername.password))
-  // ) {
-  //   res.status(200).json({
-  //     _id: userByUsername.id,
-  //     name: userByUsername.name,
-  //     email: userByUsername.email,
-  //     username: userByUsername.username,
-  //     dob: userByUsername.dob,
-  //     about: userByUsername.about,
-  //     location: userByUsername.location,
-  //     interests: userByUsername.location,
-  //     token: generateToken(userByUsername._id),
-  //   });
-  // } else {
-  //   res.status(400);
-  //   throw new Error("email or password is incorrect");
-  // }
-
   if (!userByEmail) {
     res.status(400);
     throw new Error("user does not exit");
@@ -178,6 +148,29 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json(user);
+});
+
+const getPostUserById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    username: user.username,
+    dob: user.dob,
+    about: user.about,
+    location: user.location,
+    interests: user.interests,
+    createdAt: user.createdAt,
+  });
 });
 
 //@desc update user data
@@ -237,4 +230,5 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
+  getPostUserById,
 };
