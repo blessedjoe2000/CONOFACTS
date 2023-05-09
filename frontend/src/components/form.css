@@ -63,7 +63,7 @@
 
 @media (min-width: 481px) and (max-width: 905px) {
   .form-group {
-    width: 70%;
+    width: 80%;
   }
 
   .post-container {
@@ -73,17 +73,9 @@
 }
 
 @media (max-width: 480px) {
-  .form-group {
-    width: 90%;
-  }
-
   .form {
     padding: 2rem 0;
     margin: 2rem;
-  }
-
-  .form-group {
-    width: 50%;
   }
 
   .post-container {

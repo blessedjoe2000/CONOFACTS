@@ -17,7 +17,6 @@ function Timeline() {
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
   const userInterest = user?.interests?.map((interest) => interest.name);
-  console.log("user", user);
 
   const [userPosts, setUserPosts] = useState([]);
 
