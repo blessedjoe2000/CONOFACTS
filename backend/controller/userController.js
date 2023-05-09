@@ -187,11 +187,6 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // user.interests = interests || user.interests;
-
-  // const updatedUser = await User.findOneAndUpdate(user.id);
-  // console.log("backend updated user", updatedUser);
-
   const updatedUser = await User.findOneAndUpdate(
     { _id: id }, // find the user by their ID
     req.body, // update the user with the request body
