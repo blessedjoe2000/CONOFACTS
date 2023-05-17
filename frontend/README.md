@@ -1,46 +1,57 @@
-# Getting Started with Create React App and Redux
+## DESCRIPTION
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+CONOFACTS is a web application designed to connect people who share similar interests. It allows users to create a profile, create posts, and view posts based on similar interests. the app enables both light and dark mode for preference. This repository contains the source code for the application.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+    User authentication
+    User profile creation and management
+    Post creation and management.
+    Ability to view posts according to similar interests
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To install and set up the application locally, follow these steps:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Clone this repository to your local machine
+    Install the necessary dependencies by running npm install
+    Create a .env file in the root directory and get the following variables:
 
-### `npm test`
+        DB_USERNAME (MongoDB username)
+        DB_PASSWORD (MongoDB password)
+        DB_HOST (URI to connect to MongoDB database)
+        JWT_SECRET(a JWT secret string)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+To use the application, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Create a profile by providing your personal information and choosing your interests.
+    Create a post by selecting from the list of interests and a message description of the post.
+    View other users posts on your timeline based on similar interests.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+CONOFACTS was built using the following technologies:
 
-### `npm run eject`
+    Node.js
+    Express.js
+    MongoDB
+    Socket.io
+    React.js
+    Redux.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you would like to contribute to CONOFACTS, please follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    Fork this repository
+    Create a new branch
+    Commit your changes and push the branch to your fork
+    Create a pull request to this repository
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Future Development
 
-## Learn More
+In the future, we plan to add more features such as a real-time messaging system for connected users, the ability to search for other users with similar interests.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Thank you for using CONOFACTS! We hope you enjoy connecting with people who share your interests.
