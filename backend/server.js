@@ -14,7 +14,7 @@ connectDb();
 const app = express();
 app.use(cors());
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+__dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
 app.use(express.json());
