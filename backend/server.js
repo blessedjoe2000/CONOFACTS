@@ -1,10 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
-dotenv.config();
 
 const { userRouter } = require("./routers/userRouter");
-const connectDb = require("./config/Db");
+const connectDb = require("./config/db");
 const errorHandler = require("./middleware/errorMiddleware");
 const postRouter = require("./routers/postRouter");
 
