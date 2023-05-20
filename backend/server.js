@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { dirname } = require("path");
-const { fileURLToPath } = require("url");
 const path = require("path");
 const { userRouter } = require("./routers/userRouter");
 const connectDb = require("./config/db");
@@ -14,7 +12,6 @@ connectDb();
 const app = express();
 app.use(cors());
 
-// const __dirname = dirname(fileURLToPath(meta.url));
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
 app.use(express.json());

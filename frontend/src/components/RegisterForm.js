@@ -9,6 +9,9 @@ import "./form.css";
 
 function RegisterForm() {
   const [selectInterest, setSelectInterest] = useState([]);
+  const [passwordMatch, setPasswordMatch] = useState(true); // State variable for tracking password match status
+
+  const currentDate = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,7 +19,7 @@ function RegisterForm() {
     password: "",
     passwordConfirm: "",
     username: "",
-    dob: "",
+    dob: currentDate,
     about: "",
     location: "",
     interests: [
@@ -60,11 +63,37 @@ function RegisterForm() {
     }
   };
 
+  const calculateAge = (dateString) => {
+    const today = new Date();
+    const birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
+
+    // Check if the age is 15 or above
+    const age = calculateAge(dob);
+    if (age < 15) {
+      toast.error("You must be 15 years or older to register");
+      return;
+    }
+
     if (password !== passwordConfirm) {
+      setPasswordMatch(false);
       return toast.error("Passwords do not match");
     }
+
+    setPasswordMatch(true); // Reset the password match status
+
     if (
       name.trim() === "" ||
       email.trim() === "" ||
@@ -103,7 +132,9 @@ function RegisterForm() {
       <section className="form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">
+              Name:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="text"
@@ -115,7 +146,9 @@ function RegisterForm() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">
+              Email:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="email"
@@ -128,7 +161,9 @@ function RegisterForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">
+              Password:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="password"
@@ -141,7 +176,9 @@ function RegisterForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="passwordConfirm">Confirm password:</label>
+            <label htmlFor="passwordConfirm">
+              Confirm password:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="password"
@@ -150,11 +187,20 @@ function RegisterForm() {
               value={passwordConfirm}
               placeholder="Confirm your password..."
               onChange={onChange}
+              onBlur={() => {
+                setPasswordMatch(password === passwordConfirm); // Check password match onBlur event
+              }}
             />
+            {/* Display password match error message */}
+            {!passwordMatch && (
+              <p className="password-match-error">Passwords do not match</p>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">
+              Username:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="text"
@@ -209,15 +255,19 @@ function RegisterForm() {
             <label>Interests:</label>
             <div className="interests">
               {interests.map((interest, index) => (
-                <div key={index}>
-                  <input
-                    type="checkbox"
-                    name="interests"
-                    value={JSON.stringify(interest)}
-                    id={`interest-${index}`}
-                    onChange={handleInterest}
-                  />
-                  <label htmlFor={`interest-${index}`}>{interest.name}</label>
+                <div className="checkbox" key={index}>
+                  <div className="interest-name">
+                    <label htmlFor={`interest-${index}`}>{interest.name}</label>
+                  </div>
+                  <div className="interest-value">
+                    <input
+                      type="checkbox"
+                      name="interests"
+                      value={JSON.stringify(interest)}
+                      id={`interest-${index}`}
+                      onChange={handleInterest}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
