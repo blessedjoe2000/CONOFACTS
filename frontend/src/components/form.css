@@ -51,6 +51,20 @@
   font-size: 1rem;
 }
 
+.required {
+  color: #df2935;
+}
+
+.password-match-error {
+  color: #df2935;
+}
+
+.checkbox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+}
+
 .link-to {
   color: #48cae4;
 }

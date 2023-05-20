@@ -49,7 +49,9 @@ function LoginForm() {
       <section className="form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">
+              Email:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="email"
@@ -62,7 +64,9 @@ function LoginForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">
+              Password:<span className="required">*</span>
+            </label>
             <input
               className="form-control"
               type="password"

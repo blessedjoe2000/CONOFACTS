@@ -15,6 +15,7 @@ import { resetPostUser } from "../../features/postUser/postUserSlice";
 import { useState } from "react";
 import ReactSwitch from "react-switch";
 import { toggleMode } from "../../features/modeSlice";
+import { toast } from "react-toastify";
 
 function Header() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function Header() {
     dispatch(reset());
     dispatch(resetPost());
     dispatch(resetPostUser());
-
+    toast.success("you have been logged out");
     navigate("/login");
   };
 
@@ -40,10 +41,6 @@ function Header() {
 
   const handleToggle = () => {
     dispatch(toggleMode());
-  };
-
-  const someTest = () => {
-    console.log("click");
   };
 
   return (

@@ -4,51 +4,48 @@ CONOFACTS is a web application designed to connect people who share similar inte
 
 ## Features
 
-    User authentication
-    User profile creation and management
-    Post creation and management.
-    Ability to view posts according to similar interests
+User authentication
+User profile creation and management
+Post creation and management.
+Ability to view posts according to similar interests
 
 ## Installation
 
 To install and set up the application locally, follow these steps:
-
-    Clone this repository to your local machine
-    Install the necessary dependencies by running npm install
-    Create a .env file in the root directory and get the following variables:
-
-        DB_USERNAME (MongoDB username)
-        DB_PASSWORD (MongoDB password)
-        DB_HOST (URI to connect to MongoDB database)
-        JWT_SECRET(a JWT secret string)
+Clone this repository to your local machine
+Install the necessary dependencies by running npm install
+Create a .env file in the root directory and get the following variables:
+DB_USERNAME (MongoDB username)
+DB_PASSWORD (MongoDB password)
+DB_HOST (URI to connect to MongoDB database)
+JWT_SECRET(a JWT secret string)
 
 ## Usage
 
 To use the application, follow these steps:
+Create a profile by providing your personal information and choose your interests.
+Create a post by selecting from the list of interests and a message description of the post.
 
-    Create a profile by providing your personal information and choosing your interests.
-    Create a post by selecting from the list of interests and a message description of the post.
-    View other users posts on your timeline based on similar interests.
+Note:
+This app can be used by only 15 and older.
 
 ## Technologies Used
 
 CONOFACTS was built using the following technologies:
-
-    Node.js
-    Express.js
-    MongoDB
-    Socket.io
-    React.js
-    Redux.js
+Node.js
+Express.js
+MongoDB
+Socket.io
+React.js
+Redux.js
 
 ## Contributing
 
 If you would like to contribute to CONOFACTS, please follow these steps:
-
-    Fork this repository
-    Create a new branch
-    Commit your changes and push the branch to your fork
-    Create a pull request to this repository
+Fork this repository
+Create a new branch
+Commit your changes and push the branch to your fork
+Create a pull request to this repository
 
 ## Future Development
 
