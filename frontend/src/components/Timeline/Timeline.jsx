@@ -16,9 +16,10 @@ function Timeline() {
 
   const { isPending, posts } = useSelector((state) => state?.posts);
   const user = useSelector((state) => state.auth.user);
-  const userInterest = user?.interests?.map((interest) => interest.name);
 
   const mode = useSelector((state) => state?.mode?.mode);
+
+  console.log("posts", posts);
 
   const [userPosts, setUserPosts] = useState([]);
 
@@ -47,9 +48,7 @@ function Timeline() {
 
   useEffect(() => {
     if (Array.isArray(posts) && posts.length > 0) {
-      const updatedUserPosts = posts.filter((post) =>
-        userInterest?.includes(post.interest)
-      );
+      const updatedUserPosts = posts.filter((post) => {});
       setUserPosts(updatedUserPosts);
     }
   }, [posts]);
