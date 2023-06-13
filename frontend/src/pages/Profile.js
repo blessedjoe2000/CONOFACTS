@@ -24,13 +24,12 @@ function Profile() {
     dob,
     about,
     location,
-    interests,
+    imageUrl,
     createdAt,
   } = user;
 
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
-  const [file, setFile] = useState(null);
 
   const openModal = (id) => {
     setShowModal(true);
@@ -39,14 +38,6 @@ function Profile() {
 
   const closeModal = () => {
     setShowModal(false);
-  };
-
-  const userInterests = interests?.map((interest) => (
-    <li key={interest._id}>{interest.name}</li>
-  ));
-
-  const handleFileSelect = (event) => {
-    setFile(event.target.files[0]);
   };
 
   const formattedMemberSince = new Date(createdAt).toLocaleDateString();
@@ -66,18 +57,6 @@ function Profile() {
     }
   };
 
-  const handleUpload = async () => {
-    if (file) {
-      try {
-        // Add code here to upload the file using a backend API
-        toast.success("Profile photo uploaded successfully");
-      } catch (error) {
-        console.log(error);
-        toast.error("Failed to upload profile photo");
-      }
-    }
-  };
-
   return (
     <>
       <div className="profile-body">
@@ -89,10 +68,10 @@ function Profile() {
                 <div className="profile-container">
                   <div>
                     <img
-                      src="https://www.w3schools.com/howto/img_avatar.png"
-                      alt="avatar"
+                      className="profile-img"
+                      src={imageUrl}
+                      alt={`profile of ${name}`}
                     />
-                    <input type="file" onChange={handleFileSelect} />
                   </div>
                 </div>
                 <div className="profile-info">
@@ -119,10 +98,6 @@ function Profile() {
                   <div className="profile-details-container">
                     <div className="profile-details">Location:</div>
                     <div className="profile-details-value">{location}</div>
-                  </div>
-                  <div className="profile-details-container">
-                    <div className="profile-details">Interests:</div>
-                    <div className="profile-details-value">{userInterests}</div>
                   </div>
                 </div>
               </div>

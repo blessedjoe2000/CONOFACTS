@@ -37,7 +37,7 @@ const login = async (userData) => {
 //update user
 export const updateUser = async (userData) => {
   try {
-    const { _id, name, email, username, dob, about, location, interests } =
+    const { _id, name, email, username, dob, about, location, imageUrl } =
       userData; // Destructure the fields you want to update
     const updatedData = {}; // Create an empty object to store the fields that have been updated
     if (name && name.trim() !== "") {
@@ -58,8 +58,8 @@ export const updateUser = async (userData) => {
     if (location && location.trim() !== "") {
       updatedData.location = location;
     }
-    if (interests !== []) {
-      updatedData.interests = interests;
+    if (imageUrl && imageUrl.trim() !== "") {
+      updatedData.imageUrl = imageUrl;
     }
 
     const response = await axios.patch(`${API_URL}/${_id}`, updatedData, {

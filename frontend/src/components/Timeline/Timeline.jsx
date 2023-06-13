@@ -8,18 +8,21 @@ import { getPostUser } from "../../features/postUser/postUserSlice";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCalendar,
+  faClock,
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { isPending, posts } = useSelector((state) => state?.posts);
+
   const user = useSelector((state) => state.auth.user);
-
   const mode = useSelector((state) => state?.mode?.mode);
-
-  console.log("posts", posts);
 
   const [userPosts, setUserPosts] = useState([]);
 
@@ -48,8 +51,7 @@ function Timeline() {
 
   useEffect(() => {
     if (Array.isArray(posts) && posts.length > 0) {
-      const updatedUserPosts = posts.filter((post) => {});
-      setUserPosts(updatedUserPosts);
+      setUserPosts(posts);
     }
   }, [posts]);
 
@@ -89,12 +91,51 @@ function Timeline() {
         {userPosts &&
           userPosts.map((post) => (
             <div key={post._id} className="timeline">
-              <h2 className="card-heading">{post.interest}</h2>
+              <h2 className="card-heading">{`Travel to ${post.destination}`}</h2>
+              <img
+                className="image"
+                src={post.imageUrl}
+                alt={`photo of ${post.destination}`}
+              />
+              <div className="post-tag">
+                {post.tags.map((tag, index) => (
+                  <p className="tags" key={index}>
+                    {tag.enteredTag}
+                  </p>
+                ))}
+              </div>
+              <div className="timeline-icon-details">
+                <FontAwesomeIcon icon={faClock} />
+                Tavel duration:
+                <p className="decolor">
+                  {` ${new Date(
+                    post.dateFrom
+                  ).toLocaleDateString()} - ${new Date(
+                    post.dateTo
+                  ).toLocaleDateString()}`}
+                </p>
+              </div>
 
-              {post.message.length > 250 ? (
+              <div className="post-travel">
+                <div className="timeline-icon-details">
+                  <FontAwesomeIcon icon={faCalendar} />
+                  Posted:{" "}
+                  <p className="decolor">{` ${new Date(
+                    post.createdAt
+                  ).toLocaleDateString()}`}</p>
+                </div>
+                <div className="timeline-icon-details">
+                  <FontAwesomeIcon icon={faList} /> Travelers:
+                  <p className="decolor">{` ${
+                    post?.noOfTravelers ? post.noOfTravelers : 1
+                  }`}</p>
+                </div>
+              </div>
+
+              {post.message.length > 180 ? (
                 <>
                   <p className="timeline-message">
-                    {post.message.substring(0, 250)}...
+                    {post.message.substring(0, 180)}...
                     <button
                       className="readmore"
                       onClick={() => openReadMoreModal(post.message)}
@@ -124,10 +165,6 @@ function Timeline() {
                 <p className="timeline-message">{post.message}</p>
               )}
 
-              <p className="timeline-icon-details">
-                <FontAwesomeIcon icon={faCalendar} />{" "}
-                {`Date: ${new Date(post.createdAt).toLocaleDateString()}`}
-              </p>
               {post.username === user.username ? (
                 <p className="timeline-icon-details">
                   <FontAwesomeIcon icon={faUser} /> User:{" "}
@@ -147,7 +184,6 @@ function Timeline() {
                   </Link>
                 </p>
               )}
-
               {post.username === user.username && (
                 <div className="timeline-btn">
                   <Link

@@ -1,52 +1,44 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPost } from "../../features/post/postSlice";
 import { toast } from "react-toastify";
 import "./postform.css";
+import uploadImage from "../uploadImage";
 
 function PostForm() {
-  const CLOUD_NAME = "dpn75vlns";
-  const UPLOAD_PRESET = "conofacts";
-
   const currentDate = new Date().toISOString().split("T")[0];
 
   const [message, setMessage] = useState("");
-  const [tag, setTag] = useState([]);
+  const [tags, setTags] = useState([]);
   const [destination, setDestination] = useState("");
   const [image, setImage] = useState("");
   const [dateFrom, setDateFrom] = useState(currentDate);
   const [dateTo, setDateTo] = useState(currentDate);
   const [noOfTravelers, setNoOfTravelers] = useState(1);
 
+  const [tagInput, setTagInput] = useState("");
+
   const dispatch = useDispatch();
 
-  const uploadImage = async () => {
-    if (!image) return;
+  const handleTagChange = (e) => {
+    setTagInput(e.target.value);
+  };
 
-    const formData = new FormData();
-
-    formData.append("file", image);
-    formData.append("upload_preset", UPLOAD_PRESET);
-
-    try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-        { method: "POST", body: formData }
-      );
-
-      const data = await response.json();
-      const imageUrl = data["secure_url"];
-
-      return imageUrl;
-    } catch (error) {
-      console.log(error);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const enteredTag = tagInput.trim();
+      if (enteredTag && tags.length < 5) {
+        setTags((prevTags) => [...prevTags, { enteredTag }]);
+        setTagInput("");
+      }
     }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const imageUrl = await uploadImage();
+    const imageUrl = await uploadImage(image);
 
     if (dateFrom < currentDate) {
       return toast.error("Travel start date cannot be less than today");
@@ -57,8 +49,9 @@ function PostForm() {
         "Travel start date must be less than and travel end date"
       );
     }
-    if (message === "" || destination === "" || !imageUrl) {
-      return toast.error("Fill all required fields");
+
+    if (destination === "") {
+      return toast.error("Destination is required");
     } else {
       dispatch(
         createPost({
@@ -67,7 +60,7 @@ function PostForm() {
           dateFrom,
           dateTo,
           noOfTravelers,
-          tag,
+          tags,
           imageUrl,
         })
       );
@@ -139,12 +132,12 @@ function PostForm() {
           <input
             className="form-control"
             type="number"
-            name="noOfTravelers"
             id="noOfTravelers"
             value={noOfTravelers}
             min="1"
             step="1"
-            onChange={(e) => setNoOfTravelers(e.target.value)}
+            inputMode="numeric"
+            onChange={(e) => setNoOfTravelers(parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -154,9 +147,17 @@ function PostForm() {
             type="text"
             name="tag"
             id="tag"
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            value={tagInput}
+            onKeyDown={handleKeyDown}
+            onChange={handleTagChange}
           />
+        </div>
+        <div className="tag-list">
+          {tags.map((tag, index) => (
+            <span key={index} className="tag-item">
+              {`${tag.enteredTag} `}
+            </span>
+          ))}
         </div>
         <div className="form-group">
           <label htmlFor="image">Upload photo:</label>
@@ -168,6 +169,7 @@ function PostForm() {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
+
         <div className="form-group">
           <button className={`add-btn btn btn-block `} type="submit">
             Add post

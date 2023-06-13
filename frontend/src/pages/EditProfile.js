@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { update } from "../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faBackward } from "@fortawesome/free-solid-svg-icons";
+import uploadImage from "../components/uploadImage";
 
 function EditProfile() {
   const user = useSelector((state) => state.auth.user);
@@ -15,6 +16,7 @@ function EditProfile() {
     ...user,
     dob: user.dob ? new Date(user.dob).toISOString().substr(0, 10) : "",
   });
+  const [image, setImage] = useState("");
 
   const onChange = (e) => {
     setUserData({
@@ -23,21 +25,23 @@ function EditProfile() {
     });
   };
 
-  const onSubmit = (e) => {
-    const { _id, name, email, username, dob, about, location, interests } =
-      userData;
-
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    const imageUrl = await uploadImage(image);
+    const { _id, name, email, username, dob, about, location } = userData;
+
     const updatedUser = {
       _id,
       ...(name && { name }), // Only include the name field if it's not empty
-      ...(email && { email }), // Only include the email field if it's not empty
-      ...(username && { username }), // Only include the username field if it's not empty
-      ...(dob && { dob: new Date(dob).toISOString() }), // Only include the dob field if it's not empty
-      ...(about && { about }), // Only include the about field if it's not empty
-      ...(location && { location }), // Only include the location field if it's not empty
-      ...(interests && { interests }), // Only include the interests field if it's not empty
+      ...(email && { email }),
+      ...(username && { username }),
+      ...(dob && { dob: new Date(dob).toISOString() }),
+      ...(about && { about }),
+      ...(location && { location }),
+      ...(imageUrl && { imageUrl }),
     };
+
     dispatch(update(updatedUser));
     navigate("/profile");
   };
@@ -118,21 +122,13 @@ function EditProfile() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="interests">Interests:</label>
-            <select
-              multiple={true}
-              type="checkbox"
-              id="interest"
-              value={userData.interests}
-              onChange={onChange}
-            >
-              {userData.interests &&
-                userData.interests.map((interest) => (
-                  <option key={interest._id} value={interest.name}>
-                    {interest.name}
-                  </option>
-                ))}
-            </select>
+            <label htmlFor="interests">Profile photo:</label>
+            <input
+              className="form-control"
+              type="file"
+              id="photo"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
           </div>
 
           <div className="edit-btns">

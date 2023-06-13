@@ -29,11 +29,44 @@
   color: #48cae4;
 }
 
+.post-tag {
+  display: flex;
+
+  gap: 0.5rem;
+  color: #fff;
+}
+.tags:nth-child(even) {
+  background-color: #003566;
+  padding: 0 5px;
+  border-radius: 10px;
+}
+.tags:nth-child(odd) {
+  background-color: #48cae4;
+  padding: 0 5px;
+  border-radius: 10px;
+}
+
+.decolor {
+  color: #003566;
+}
+
+#dark-mode .decolor {
+  color: #fff;
+}
+
+.post-travel {
+  display: flex;
+  gap: 1rem;
+}
 .readmore {
   display: flex;
   background-color: transparent;
   border: 1px solid transparent;
-  color: #48cae4;
+  color: #003566;
+}
+
+#dark-mode .readmore {
+  color: #fff;
 }
 
 .readmore:hover {
@@ -45,9 +78,13 @@
   color: #fff;
 }
 
+.timeline-message {
+  text-align: left;
+}
+
 .timeline-icon-details {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.5rem;
   color: #48cae4;
 }
