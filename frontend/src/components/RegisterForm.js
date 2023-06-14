@@ -6,9 +6,9 @@ import { register } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./form.css";
+import uploadImage from "./uploadImage";
 
 function RegisterForm() {
-  const [selectInterest, setSelectInterest] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true); // State variable for tracking password match status
 
   const currentDate = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
@@ -22,14 +22,6 @@ function RegisterForm() {
     dob: currentDate,
     about: "",
     location: "",
-    interests: [
-      { name: "Sports", value: "sports" },
-      { name: "Wildlife", value: "wildlife" },
-      { name: "Road Trip", value: "road trip" },
-      { name: "Book Club", value: "book club" },
-      { name: "Games", value: "games" },
-      { name: "Adventure", value: "adventure" },
-    ],
   });
   const {
     name,
@@ -40,8 +32,8 @@ function RegisterForm() {
     dob,
     about,
     location,
-    interests,
   } = formData;
+  const [image, setImage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -50,17 +42,6 @@ function RegisterForm() {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
-
-  const handleInterest = (e) => {
-    const interest = JSON.parse(e.target.value);
-    if (e.target.checked) {
-      setSelectInterest((prevInterest) => [...prevInterest, interest]);
-    } else {
-      setSelectInterest((prevInterest) =>
-        prevInterest.filter((inter) => inter.value !== interest.value)
-      );
-    }
   };
 
   const calculateAge = (dateString) => {
@@ -77,8 +58,10 @@ function RegisterForm() {
     return age;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    const imageUrl = await uploadImage(image);
 
     // Check if the age is 15 or above
     const age = calculateAge(dob);
@@ -112,7 +95,7 @@ function RegisterForm() {
         dob,
         about,
         location,
-        interests: selectInterest,
+        imageUrl,
       };
 
       dispatch(register(userData));
@@ -252,27 +235,14 @@ function RegisterForm() {
           </div>
 
           <div className="form-group">
-            <label>Interests:</label>
-            <div className="interests">
-              {interests.map((interest, index) => (
-                <div className="checkbox" key={index}>
-                  <div className="interest-name">
-                    <label htmlFor={`interest-${index}`}>{interest.name}</label>
-                  </div>
-                  <div className="interest-value">
-                    <input
-                      type="checkbox"
-                      name="interests"
-                      value={JSON.stringify(interest)}
-                      id={`interest-${index}`}
-                      onChange={handleInterest}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <label htmlFor="photo">Upload profile photo:</label>
+            <input
+              className="form-control"
+              type="file"
+              id="photo"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
           </div>
-
           <div className="form-group ">
             <button type="submit" className="btn btn-block">
               Submit
