@@ -14,7 +14,6 @@ import EditPost from "./pages/EditPost";
 import ViewUserProfile from "./pages/ViewUserProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
-import { ChakraProvider } from "@chakra-ui/react";
 
 Modal.setAppElement("#root");
 

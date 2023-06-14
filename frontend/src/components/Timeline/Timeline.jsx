@@ -1,35 +1,18 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import "./timeline.css";
-import { Link, useNavigate } from "react-router-dom";
-import { deletePost, getPostById } from "../../features/post/postSlice";
-import { getPostUser } from "../../features/postUser/postUserSlice";
-import { toast } from "react-toastify";
 import Spinner from "../Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faCalendar,
-  faClock,
-  faList,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faClock, faList } from "@fortawesome/free-solid-svg-icons";
 
 function Timeline() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { isPending, posts } = useSelector((state) => state?.posts);
-
-  const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state?.mode?.mode);
 
   const [userPosts, setUserPosts] = useState([]);
-
   const [showReadMoreModal, setShowReadMoreModal] = useState(false);
   const [readMorePost, setReadMorePost] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [postToDelete, setPostToDelete] = useState(null);
 
   const openReadMoreModal = (post) => {
     setShowReadMoreModal(true);
@@ -40,48 +23,14 @@ function Timeline() {
     setShowReadMoreModal(false);
   };
 
-  const openDeleteModal = (id) => {
-    setShowDeleteModal(true);
-    setPostToDelete(id);
-  };
-
-  const closeDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
-
   useEffect(() => {
     if (Array.isArray(posts) && posts.length > 0) {
       setUserPosts(posts);
     }
   }, [posts]);
 
-  const handleUsername = (id) => {
-    dispatch(getPostUser(id));
-    navigate("/postuser");
-  };
-
-  const handleDelete = async () => {
-    if (postToDelete) {
-      try {
-        await dispatch(deletePost(postToDelete)).unwrap();
-        toast.success("post deleted");
-        // Remove the deleted post from the state
-        setUserPosts((prevPosts) =>
-          prevPosts.filter((post) => post._id !== postToDelete)
-        );
-        closeDeleteModal();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const handleEdit = (id) => {
-    dispatch(getPostById(id));
-  };
-
   if (isPending) {
-    <Spinner />;
+    return <Spinner />;
   }
 
   return (
@@ -95,7 +44,7 @@ function Timeline() {
               <img
                 className="image"
                 src={post.imageUrl}
-                alt={`photo of ${post.destination}`}
+                alt={` ${post.destination}`}
               />
               <div className="post-tag">
                 {post.tags.map((tag, index) => (
@@ -164,67 +113,17 @@ function Timeline() {
               ) : (
                 <p className="timeline-message">{post.message}</p>
               )}
-
-              {post.username === user.username ? (
-                <p className="timeline-icon-details">
-                  <FontAwesomeIcon icon={faUser} /> User:{" "}
-                  <Link to={`/profile`} className="timeline-username">
-                    {post.username}
-                  </Link>
-                </p>
-              ) : (
-                <p className="timeline-icon-details">
-                  <FontAwesomeIcon icon={faUser} /> User:{" "}
-                  <Link
-                    to={`/viewuser/${post.user}`}
-                    className="timeline-username"
-                    onClick={() => handleUsername(post.user)}
-                  >
-                    {post.username}
-                  </Link>
-                </p>
-              )}
-              {post.username === user.username && (
-                <div className="timeline-btn">
-                  <Link
-                    to={`/editpost/${post._id}`}
-                    onClick={() => handleEdit(post._id)}
-                  >
-                    <button className="btn">edit</button>
-                  </Link>
-                  <button
-                    className="delete btn"
-                    onClick={() => openDeleteModal(post._id)}
-                  >
-                    delete
-                  </button>
-                </div>
-              )}
+              <div className="avatar-container">
+                <img
+                  className="avatar"
+                  src={post.userImage}
+                  alt={`profile of ${post.username}`}
+                />
+                <button className="btn ">Join Trip</button>
+              </div>
             </div>
           ))}
       </div>
-      <Modal
-        id={mode === "dark" ? "dark-mode" : ""}
-        className="modal-delete"
-        isOpen={showDeleteModal}
-        onRequestClose={closeDeleteModal}
-      >
-        <button className="close" onClick={closeDeleteModal}>
-          X
-        </button>
-        <h2 className="modal-heading">Confirm delete</h2>
-        <p className="modal-message-info">
-          Are you sure you delete this post?{" "}
-        </p>
-        <div className="modal-btn-container">
-          <button className="btn delete-close" onClick={closeDeleteModal}>
-            cancel
-          </button>
-          <button className="btn delete" onClick={handleDelete}>
-            delete
-          </button>
-        </div>
-      </Modal>
     </>
   );
 }
