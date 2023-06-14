@@ -15,7 +15,6 @@ import { useState } from "react";
 import ReactSwitch from "react-switch";
 import { toggleMode } from "../../features/modeSlice";
 import { toast } from "react-toastify";
-import Avatar from "../Avatar";
 
 function Header() {
   const dispatch = useDispatch();
@@ -63,7 +62,11 @@ function Header() {
 
             <li className="nav-item" onClick={toggleMenu}>
               <Link className="menu-list" to={`/profile`}>
-                <Avatar />
+                <img
+                  className="avatar"
+                  src={user.imageUrl}
+                  alt={`profile of ${user.name}`}
+                />
               </Link>
             </li>
 
