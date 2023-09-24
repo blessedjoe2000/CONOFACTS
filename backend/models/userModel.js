@@ -30,12 +30,7 @@ const UserSchema = mongoose.Schema(
     location: {
       type: String,
     },
-    interests: [
-      {
-        name: { type: String },
-        value: { type: String },
-      },
-    ],
+    imageUrl: { type: String },
   },
   {
     timestamps: true,

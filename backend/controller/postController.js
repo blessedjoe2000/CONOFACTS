@@ -4,19 +4,30 @@ const Post = require("../models/postModel");
 //@desc set post
 //access Private
 const createPost = asyncHandler(async (req, res) => {
-  const { _id, interest, message } = req.body;
-
-  if (!interest) {
-    res.status(400);
-    throw new Error("Please select interest");
-  }
+  const {
+    _id,
+    destination,
+    message,
+    dateFrom,
+    dateTo,
+    noOfTravelers,
+    tags,
+    imageUrl,
+    username,
+  } = req.body;
 
   const post = await Post.create({
     id: _id,
-    interest,
+    destination,
     message,
+    dateFrom,
+    dateTo,
+    noOfTravelers,
+    tags,
+    imageUrl,
     user: req.user.id,
     username: req.user.username,
+    userImage: req.user.imageUrl,
   });
 
   res.status(201).json({ post });
