@@ -8,17 +8,31 @@ const postSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    username: {
+    userImage: {
       type: String,
-      required: true,
       ref: "User",
     },
-
-    interest: {
+    username: {
       type: String,
-      required: { true: "please choose interest" },
+      ref: "User",
     },
+    destination: { type: String, required: true },
     message: { type: String },
+
+    dateFrom: {
+      type: Date,
+      required: true,
+    },
+    dateTo: { type: Date, required: true },
+    noOfTravelers: { type: Number },
+    tags: [
+      {
+        enteredTag: { type: String },
+      },
+    ],
+    imageUrl: {
+      type: String,
+    },
   },
   {
     timestamps: true,

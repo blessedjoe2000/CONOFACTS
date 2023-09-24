@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 //route POST/conofacts/user
 //access public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, username, dob, about, location, interests } =
+  const { name, email, password, username, dob, about, location, imageUrl } =
     req.body;
 
   //make sure the name field is not empty
@@ -59,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     dob,
     about,
     location,
-    interests,
+    imageUrl,
   });
 
   if (user) {
@@ -71,7 +71,7 @@ const registerUser = asyncHandler(async (req, res) => {
       dob: user.dob,
       about: user.about,
       location: user.location,
-      interests: user.interests,
+      imageUrl: user.imageUrl,
       createdAt: user.createdAt,
       token: generateToken(user._id),
     });
@@ -117,7 +117,7 @@ const loginUser = asyncHandler(async (req, res) => {
       dob: userByEmail.dob,
       about: userByEmail.about,
       location: userByEmail.location,
-      interests: userByEmail.interests,
+      imageUrl: userByEmail.imageUrl,
       createdAt: userByEmail.createdAt,
       token: generateToken(userByEmail._id),
     });
@@ -168,7 +168,7 @@ const getPostUserById = asyncHandler(async (req, res) => {
     dob: user.dob,
     about: user.about,
     location: user.location,
-    interests: user.interests,
+    imageUrl: user.imageUrl,
     createdAt: user.createdAt,
   });
 });

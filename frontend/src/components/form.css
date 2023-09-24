@@ -98,9 +98,10 @@
 .avatar-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-@media (min-width: 481px) and (max-width: 905px) {
+@media (min-width: 811px) and (max-width: 1200px) {
   .form-group {
     width: 80%;
   }
@@ -109,6 +110,20 @@
     padding: 3rem 0;
     margin: 2rem 3rem;
   }
+}
+
+@media (min-width: 481px) and (max-width: 810px) {
+  .form-group {
+    width: 80%;
+  }
+
+  .post-container {
+    padding: 3rem 0;
+    margin: 2rem 3rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 905px) {
 }
 
 @media (max-width: 480px) {
